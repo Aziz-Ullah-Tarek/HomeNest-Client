@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { FaHome, FaBars, FaTimes, FaUser, FaBuilding, FaPlusCircle, FaStar } from 'react-icons/fa';
-import { MdRealEstateAgent, MdDashboard } from 'react-icons/md';
+import { FaHome, FaBars, FaTimes, FaUser, FaBuilding, FaPlusCircle, FaStar, FaChevronDown } from 'react-icons/fa';
+import { MdRealEstateAgent, MdEmail } from 'react-icons/md';
 import { BiLogIn, BiLogOut } from 'react-icons/bi';
 import { useAuth } from '../providers/AuthProvider';
 import { toast } from 'react-toastify';
@@ -9,7 +9,9 @@ import { toast } from 'react-toastify';
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
   const { user, logout } = useAuth();
+  const dropdownRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,6 +21,17 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -26,6 +39,7 @@ const Navbar = () => {
   const handleLogout = async () => {
     try {
       await logout();
+      setShowDropdown(false);
       toast.success('Logged out successfully!');
     } catch (error) {
       toast.error('Logout failed!');
@@ -110,13 +124,17 @@ const Navbar = () => {
           {/* Auth Buttons - Modern Design */}
           <div className="hidden lg:flex items-center space-x-3">
             {user ? (
-              <div className="flex items-center space-x-3">
-                <div className="flex items-center space-x-3 bg-linear-to-r from-purple-50 to-pink-50 border-2 border-purple-200 px-5 py-2.5 rounded-full">
+              <div className="relative" ref={dropdownRef}>
+                {/* User Profile Button */}
+                <button
+                  onClick={() => setShowDropdown(!showDropdown)}
+                  className="flex items-center space-x-3 bg-linear-to-r from-purple-50 to-pink-50 border-2 border-purple-200 px-5 py-2.5 rounded-full hover:border-purple-400 transition-all duration-300 group"
+                >
                   {user.photoURL ? (
                     <img 
                       src={user.photoURL} 
                       alt={user.displayName || 'User'} 
-                      className="w-9 h-9 rounded-full object-cover border-2 border-purple-300"
+                      className="w-9 h-9 rounded-full object-cover border-2 border-purple-300 group-hover:border-purple-500 transition-all"
                       onError={(e) => {
                         e.target.style.display = 'none';
                         e.target.nextElementSibling.style.display = 'flex';
@@ -124,20 +142,85 @@ const Navbar = () => {
                     />
                   ) : null}
                   <div 
-                    className="w-9 h-9 rounded-full bg-linear-to-r from-purple-600 to-pink-600 flex items-center justify-center"
+                    className="w-9 h-9 rounded-full bg-linear-to-r from-purple-600 to-pink-600 flex items-center justify-center group-hover:scale-110 transition-transform"
                     style={{ display: user.photoURL ? 'none' : 'flex' }}
                   >
                     <FaUser className="text-white text-sm" />
                   </div>
-                  <span className="text-gray-800 font-bold">{user.displayName || user.email?.split('@')[0] || 'User'}</span>
-                </div>
-                <button
-                  onClick={handleLogout}
-                  className="flex items-center space-x-2 bg-gray-800 text-white px-6 py-2.5 rounded-full font-bold hover:bg-gray-900 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
-                >
-                  <BiLogOut className="text-lg" />
-                  <span>Logout</span>
+                  <FaChevronDown className={`text-purple-600 transition-transform duration-300 ${showDropdown ? 'rotate-180' : ''}`} />
                 </button>
+
+                {/* Dropdown Menu */}
+                {showDropdown && (
+                  <div className="absolute right-0 mt-3 w-72 bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden z-50 animate-fadeIn">
+                    {/* Dropdown Header with Gradient */}
+                    <div className="bg-linear-to-r from-purple-600 to-pink-600 px-6 py-4">
+                      <div className="flex items-center space-x-3">
+                        {user.photoURL ? (
+                          <img 
+                            src={user.photoURL} 
+                            alt={user.displayName || 'User'} 
+                            className="w-12 h-12 rounded-full object-cover border-3 border-white shadow-lg"
+                            onError={(e) => {
+                              e.target.style.display = 'none';
+                              e.target.nextElementSibling.style.display = 'flex';
+                            }}
+                          />
+                        ) : null}
+                        <div 
+                          className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center border-2 border-white"
+                          style={{ display: user.photoURL ? 'none' : 'flex' }}
+                        >
+                          <FaUser className="text-white text-xl" />
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="text-white font-bold text-lg truncate">
+                            {user.displayName || 'User'}
+                          </h3>
+                          <p className="text-purple-100 text-xs">Account Settings</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Dropdown Body */}
+                    <div className="p-4 space-y-3">
+                      {/* Display Name */}
+                      <div className="flex items-center space-x-3 px-3 py-2 rounded-lg bg-gray-50">
+                        <div className="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center">
+                          <FaUser className="text-purple-600 text-sm" />
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-xs text-gray-500 font-semibold">Name</p>
+                          <p className="text-sm text-gray-800 font-bold truncate">
+                            {user.displayName || 'Not provided'}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Email */}
+                      <div className="flex items-center space-x-3 px-3 py-2 rounded-lg bg-gray-50">
+                        <div className="w-8 h-8 rounded-full bg-pink-100 flex items-center justify-center">
+                          <MdEmail className="text-pink-600 text-sm" />
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-xs text-gray-500 font-semibold">Email</p>
+                          <p className="text-sm text-gray-800 font-bold truncate">
+                            {user.email || 'Not provided'}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Logout Button */}
+                      <button
+                        onClick={handleLogout}
+                        className="w-full flex items-center justify-center space-x-2 bg-linear-to-r from-red-500 to-red-600 text-white px-4 py-3 rounded-lg font-bold hover:from-red-600 hover:to-red-700 transition-all duration-300 shadow-md hover:shadow-lg mt-4"
+                      >
+                        <BiLogOut className="text-lg" />
+                        <span>Logout</span>
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             ) : (
               <>
