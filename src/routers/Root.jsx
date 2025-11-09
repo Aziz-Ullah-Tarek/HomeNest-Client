@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import Layout from '../components/Layout';
 import Home from '../pages/Home';
 import Properties from '../pages/Properties';
+import PropertyDetails from '../pages/PropertyDetails';
 import Login from '../pages/Login';
 import SignUp from '../pages/Register';
 import AddProperty from '../pages/AddProperty';
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
       {
         element: <PrivateRoute />,
         children: [
+          {
+            path: '/properties/:id',
+            element: <PropertyDetails />,
+          },
           {
             path: '/add-property',
             element: <AddProperty />,

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaBed, FaBath, FaRulerCombined, FaMapMarkerAlt, FaHeart } from 'react-icons/fa';
+import axios from 'axios';
 
 const FeaturedProperties = () => {
   const [properties, setProperties] = useState([]);
@@ -12,9 +13,9 @@ const FeaturedProperties = () => {
 
   const fetchFeaturedProperties = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/properties/featured');
-      const data = await response.json();
-      setProperties(data);
+      const response = await axios.get('http://localhost:3000/api/properties/featured');
+      console.log('Fetched featured properties:', response.data.length);
+      setProperties(response.data);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching featured properties:', error);
@@ -39,7 +40,7 @@ const FeaturedProperties = () => {
   }
 
   return (
-    <section className="py-20 bg-gradient-to-br from-gray-50 to-purple-50">
+    <section className="py-20 bg-linear-to-br from-gray-50 to-purple-50">
       <div className="text-center mb-12">
         <span className="text-purple-600 font-bold text-sm uppercase tracking-wider">Premium Selection</span>
         <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-4 mt-2">Featured Properties</h2>
@@ -108,7 +109,7 @@ const FeaturedProperties = () => {
                 </div>
                 <Link
                   to={`/properties/${property._id}`}
-                  className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-full font-bold hover:from-purple-700 hover:to-pink-700 transition-all duration-300 hover:scale-105"
+                  className="bg-linear-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-full font-bold hover:from-purple-700 hover:to-pink-700 transition-all duration-300 hover:scale-105"
                 >
                   View Details
                 </Link>
