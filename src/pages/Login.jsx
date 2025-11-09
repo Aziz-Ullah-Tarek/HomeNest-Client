@@ -1,9 +1,15 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { FaGoogle, FaEye, FaEyeSlash, FaEnvelope, FaLock } from 'react-icons/fa';
 import { toast } from 'react-toastify';
+import { useAuth } from '../providers/AuthProvider';
 
 const Login = () => {
+    const { signIn, signInWithGoogle } = useAuth();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/';
+
     const [formData, setFormData] = useState({
         email: '',
         password: ''
@@ -23,11 +29,22 @@ const Login = () => {
         setLoading(true);
 
         try {
-            // TODO: Implement Firebase login logic here
-            console.log('Login data:', formData);
+            await signIn(formData.email, formData.password);
             toast.success('Login successful!');
+            navigate(from, { replace: true });
         } catch (error) {
-            toast.error(error.message || 'Login failed!');
+            console.error(error);
+            if (error.code === 'auth/user-not-found') {
+                toast.error('No user found with this email!');
+            } else if (error.code === 'auth/wrong-password') {
+                toast.error('Incorrect password!');
+            } else if (error.code === 'auth/invalid-email') {
+                toast.error('Invalid email address!');
+            } else if (error.code === 'auth/invalid-credential') {
+                toast.error('Invalid email or password!');
+            } else {
+                toast.error(error.message || 'Login failed!');
+            }
         } finally {
             setLoading(false);
         }
@@ -35,10 +52,11 @@ const Login = () => {
 
     const handleGoogleLogin = async () => {
         try {
-            // TODO: Implement Google login logic here
-            console.log('Google login clicked');
+            await signInWithGoogle();
             toast.success('Google login successful!');
+            navigate(from, { replace: true });
         } catch (error) {
+            console.error(error);
             toast.error(error.message || 'Google login failed!');
         }
     };
@@ -160,7 +178,7 @@ const Login = () => {
                         <p className="text-sm text-gray-600">
                             Don't have an account?{' '}
                             <Link 
-                                to="/register" 
+                                to="/signup" 
                                 className="font-semibold text-purple-600 hover:text-purple-500 transition duration-200"
                             >
                                 Register Now

@@ -1,9 +1,13 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaGoogle, FaEye, FaEyeSlash, FaEnvelope, FaLock, FaUser, FaImage } from 'react-icons/fa';
 import { toast } from 'react-toastify';
+import { useAuth } from '../providers/AuthProvider';
 
 const Register = () => {
+    const { createUser, signInWithGoogle, updateUserProfile } = useAuth();
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -49,11 +53,25 @@ const Register = () => {
         }
 
         try {
-            // TODO: Implement Firebase register logic here
-            console.log('Register data:', formData);
-            toast.success('Registration successful!');
+            // Create user
+            await createUser(formData.email, formData.password);
+            
+            // Update profile
+            await updateUserProfile(formData.name, formData.photoURL);
+            
+            toast.success('Registration successful! Welcome to HomeNest!');
+            navigate('/');
         } catch (error) {
-            toast.error(error.message || 'Registration failed!');
+            console.error(error);
+            if (error.code === 'auth/email-already-in-use') {
+                toast.error('Email already in use!');
+            } else if (error.code === 'auth/invalid-email') {
+                toast.error('Invalid email address!');
+            } else if (error.code === 'auth/weak-password') {
+                toast.error('Password is too weak!');
+            } else {
+                toast.error(error.message || 'Registration failed!');
+            }
         } finally {
             setLoading(false);
         }
@@ -61,10 +79,11 @@ const Register = () => {
 
     const handleGoogleLogin = async () => {
         try {
-            // TODO: Implement Google login logic here
-            console.log('Google login clicked');
+            await signInWithGoogle();
             toast.success('Google registration successful!');
+            navigate('/');
         } catch (error) {
+            console.error(error);
             toast.error(error.message || 'Google registration failed!');
         }
     };
@@ -241,13 +260,7 @@ const Register = () => {
                     </div>
                 </div>
 
-                {/* Additional Info */}
-                <p className="mt-6 text-center text-xs text-gray-500">
-                    By creating an account, you agree to our{' '}
-                    <a href="#" className="text-purple-600 hover:text-purple-500">Terms of Service</a>
-                    {' '}and{' '}
-                    <a href="#" className="text-purple-600 hover:text-purple-500">Privacy Policy</a>
-                </p>
+    
             </div>
         </div>
     );

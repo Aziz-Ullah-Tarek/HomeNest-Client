@@ -3,11 +3,13 @@ import { Link, NavLink } from 'react-router-dom';
 import { FaHome, FaBars, FaTimes, FaUser, FaBuilding, FaPlusCircle, FaStar } from 'react-icons/fa';
 import { MdRealEstateAgent, MdDashboard } from 'react-icons/md';
 import { BiLogIn, BiLogOut } from 'react-icons/bi';
+import { useAuth } from '../providers/AuthProvider';
+import { toast } from 'react-toastify';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const user = null; // TODO: Replace with actual auth context
+  const { user, logout } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,6 +21,15 @@ const Navbar = () => {
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      toast.success('Logged out successfully!');
+    } catch (error) {
+      toast.error('Logout failed!');
+    }
   };
 
   const navLinks = [
@@ -100,14 +111,28 @@ const Navbar = () => {
           <div className="hidden lg:flex items-center space-x-3">
             {user ? (
               <div className="flex items-center space-x-3">
-                <div className="flex items-center space-x-3 bg-gradient-to-r from-purple-50 to-pink-50 border-2 border-purple-200 px-5 py-2.5 rounded-full">
-                  <div className="w-9 h-9 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex items-center justify-center">
+                <div className="flex items-center space-x-3 bg-linear-to-r from-purple-50 to-pink-50 border-2 border-purple-200 px-5 py-2.5 rounded-full">
+                  {user.photoURL ? (
+                    <img 
+                      src={user.photoURL} 
+                      alt={user.displayName || 'User'} 
+                      className="w-9 h-9 rounded-full object-cover border-2 border-purple-300"
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        e.target.nextElementSibling.style.display = 'flex';
+                      }}
+                    />
+                  ) : null}
+                  <div 
+                    className="w-9 h-9 rounded-full bg-linear-to-r from-purple-600 to-pink-600 flex items-center justify-center"
+                    style={{ display: user.photoURL ? 'none' : 'flex' }}
+                  >
                     <FaUser className="text-white text-sm" />
                   </div>
-                  <span className="text-gray-800 font-bold">{user?.name || 'User'}</span>
+                  <span className="text-gray-800 font-bold">{user.displayName || user.email?.split('@')[0] || 'User'}</span>
                 </div>
                 <button
-                  onClick={() => {/* TODO: Add logout */}}
+                  onClick={handleLogout}
                   className="flex items-center space-x-2 bg-gray-800 text-white px-6 py-2.5 rounded-full font-bold hover:bg-gray-900 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
                 >
                   <BiLogOut className="text-lg" />
@@ -125,7 +150,7 @@ const Navbar = () => {
                 </Link>
                 <Link
                   to="/signup"
-                  className="flex items-center space-x-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2.5 rounded-full font-bold hover:from-purple-700 hover:to-pink-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+                  className="flex items-center space-x-2 bg-linear-to-r from-purple-600 to-pink-600 text-white px-6 py-2.5 rounded-full font-bold hover:from-purple-700 hover:to-pink-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
                 >
                   <FaUser className="text-sm" />
                   <span>Sign Up</span>
@@ -225,13 +250,35 @@ const Navbar = () => {
             {/* Auth Buttons Mobile */}
             <div className="p-4 space-y-3 border-t border-gray-200">
               {user ? (
-                <button
-                  onClick={() => {/* TODO: Add logout */}}
-                  className="w-full flex items-center justify-center space-x-2 bg-gray-800 text-white px-4 py-4 rounded-xl font-bold hover:bg-gray-900 transition-all duration-300 shadow-lg"
-                >
-                  <BiLogOut className="text-xl" />
-                  <span>Logout</span>
-                </button>
+                <>
+                  <div className="flex items-center space-x-3 bg-linear-to-r from-purple-50 to-pink-50 border-2 border-purple-200 px-4 py-3 rounded-xl mb-3">
+                    {user.photoURL ? (
+                      <img 
+                        src={user.photoURL} 
+                        alt={user.displayName || 'User'} 
+                        className="w-10 h-10 rounded-full object-cover border-2 border-purple-300"
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                          e.target.nextElementSibling.style.display = 'flex';
+                        }}
+                      />
+                    ) : null}
+                    <div 
+                      className="w-10 h-10 rounded-full bg-linear-to-r from-purple-600 to-pink-600 flex items-center justify-center"
+                      style={{ display: user.photoURL ? 'none' : 'flex' }}
+                    >
+                      <FaUser className="text-white" />
+                    </div>
+                    <span className="text-gray-800 font-bold">{user.displayName || user.email?.split('@')[0] || 'User'}</span>
+                  </div>
+                  <button
+                    onClick={handleLogout}
+                    className="w-full flex items-center justify-center space-x-2 bg-gray-800 text-white px-4 py-4 rounded-xl font-bold hover:bg-gray-900 transition-all duration-300 shadow-lg"
+                  >
+                    <BiLogOut className="text-xl" />
+                    <span>Logout</span>
+                  </button>
+                </>
               ) : (
                 <>
                   <Link
@@ -245,7 +292,7 @@ const Navbar = () => {
                   <Link
                     to="/signup"
                     onClick={() => setIsOpen(false)}
-                    className="flex items-center justify-center space-x-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-4 rounded-xl font-bold hover:from-purple-700 hover:to-pink-700 transition-all duration-300 shadow-lg"
+                    className="flex items-center justify-center space-x-2 bg-linear-to-r from-purple-600 to-pink-600 text-white px-4 py-4 rounded-xl font-bold hover:from-purple-700 hover:to-pink-700 transition-all duration-300 shadow-lg"
                   >
                     <FaUser />
                     <span>Sign Up</span>
