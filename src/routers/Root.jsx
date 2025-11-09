@@ -3,7 +3,7 @@ import Layout from '../components/Layout';
 import Home from '../pages/Home';
 import Properties from '../pages/Properties';
 import Login from '../pages/Login';
-import SignUp from '../pages/SignUp';
+import SignUp from '../pages/Register';
 import AddProperty from '../pages/AddProperty';
 import MyProperties from '../pages/MyProperties';
 import MyRatings from '../pages/MyRatings';

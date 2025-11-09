@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaGoogle, FaEye, FaEyeSlash, FaEnvelope, FaLock } from 'react-icons/fa';
+import { FaGoogle, FaEye, FaEyeSlash, FaEnvelope, FaLock, FaUser, FaImage } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 
-const Login = () => {
+const Register = () => {
     const [formData, setFormData] = useState({
+        name: '',
         email: '',
+        photoURL: '',
         password: ''
     });
     const [showPassword, setShowPassword] = useState(false);
@@ -18,16 +20,40 @@ const Login = () => {
         });
     };
 
+    const validatePassword = (password) => {
+        const errors = [];
+        
+        if (password.length < 6) {
+            errors.push('Password must be at least 6 characters long');
+        }
+        if (!/[A-Z]/.test(password)) {
+            errors.push('Password must contain at least one uppercase letter');
+        }
+        if (!/[a-z]/.test(password)) {
+            errors.push('Password must contain at least one lowercase letter');
+        }
+        
+        return errors;
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
 
+        // Validate password
+        const passwordErrors = validatePassword(formData.password);
+        if (passwordErrors.length > 0) {
+            passwordErrors.forEach(error => toast.error(error));
+            setLoading(false);
+            return;
+        }
+
         try {
-            // TODO: Implement Firebase login logic here
-            console.log('Login data:', formData);
-            toast.success('Login successful!');
+            // TODO: Implement Firebase register logic here
+            console.log('Register data:', formData);
+            toast.success('Registration successful!');
         } catch (error) {
-            toast.error(error.message || 'Login failed!');
+            toast.error(error.message || 'Registration failed!');
         } finally {
             setLoading(false);
         }
@@ -37,9 +63,9 @@ const Login = () => {
         try {
             // TODO: Implement Google login logic here
             console.log('Google login clicked');
-            toast.success('Google login successful!');
+            toast.success('Google registration successful!');
         } catch (error) {
-            toast.error(error.message || 'Google login failed!');
+            toast.error(error.message || 'Google registration failed!');
         }
     };
 
@@ -51,16 +77,38 @@ const Login = () => {
                     {/* Header */}
                     <div className="text-center">
                         <div className="mx-auto w-12 h-12 bg-linear-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center mb-3">
-                            <FaLock className="text-white text-xl" />
+                            <FaUser className="text-white text-xl" />
                         </div>
-                        <h2 className="text-2xl font-black text-gray-900">Login Now</h2>
+                        <h2 className="text-2xl font-black text-gray-900">GreenNest SignUp Now</h2>
                         <p className="mt-1 text-sm text-gray-600">
-                            Sign in to access your account
+                            Join us and find your dream home
                         </p>
                     </div>
 
                     {/* Form */}
                     <form className="space-y-4" onSubmit={handleSubmit}>
+                        {/* Name Input */}
+                        <div>
+                            <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-1">
+                                Full Name
+                            </label>
+                            <div className="relative">
+                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <FaUser className="h-5 w-5 text-gray-400" />
+                                </div>
+                                <input
+                                    id="name"
+                                    name="name"
+                                    type="text"
+                                    required
+                                    value={formData.name}
+                                    onChange={handleChange}
+                                    className="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition duration-200"
+                                    placeholder="Enter your full name"
+                                />
+                            </div>
+                        </div>
+
                         {/* Email Input */}
                         <div>
                             <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-1">
@@ -84,6 +132,27 @@ const Login = () => {
                             </div>
                         </div>
 
+                        {/* Photo URL Input */}
+                        <div>
+                            <label htmlFor="photoURL" className="block text-sm font-semibold text-gray-700 mb-1">
+                                Photo URL
+                            </label>
+                            <div className="relative">
+                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <FaImage className="h-5 w-5 text-gray-400" />
+                                </div>
+                                <input
+                                    id="photoURL"
+                                    name="photoURL"
+                                    type="url"
+                                    value={formData.photoURL}
+                                    onChange={handleChange}
+                                    className="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition duration-200"
+                                    placeholder="Enter photo URL (optional)"
+                                />
+                            </div>
+                        </div>
+
                         {/* Password Input */}
                         <div>
                             <label htmlFor="password" className="block text-sm font-semibold text-gray-700 mb-1">
@@ -97,12 +166,12 @@ const Login = () => {
                                     id="password"
                                     name="password"
                                     type={showPassword ? 'text' : 'password'}
-                                    autoComplete="current-password"
+                                    autoComplete="new-password"
                                     required
                                     value={formData.password}
                                     onChange={handleChange}
                                     className="block w-full pl-10 pr-12 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition duration-200"
-                                    placeholder="Enter your password"
+                                    placeholder="Create a strong password"
                                 />
                                 <button
                                     type="button"
@@ -116,6 +185,9 @@ const Login = () => {
                                     )}
                                 </button>
                             </div>
+                            <p className="mt-2 text-xs text-gray-500">
+                                Must contain uppercase, lowercase, and at least 6 characters
+                            </p>
                         </div>
 
                         {/* Submit Button */}
@@ -127,10 +199,10 @@ const Login = () => {
                             {loading ? (
                                 <div className="flex items-center">
                                     <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                                    Signing in...
+                                    Creating account...
                                 </div>
                             ) : (
-                                'Sign In'
+                                'Create Account'
                             )}
                         </button>
 
@@ -151,26 +223,34 @@ const Login = () => {
                             className="w-full flex items-center justify-center gap-3 py-2.5 px-4 border-2 border-gray-300 rounded-lg shadow-sm bg-white text-sm font-semibold text-gray-700 hover:bg-gray-50 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition duration-200"
                         >
                             <FaGoogle className="h-5 w-5 text-red-500" />
-                            Sign in with Google
+                            Sign up with Google
                         </button>
                     </form>
 
-                    {/* Register Link */}
+                    {/* Login Link */}
                     <div className="text-center pt-2">
                         <p className="text-sm text-gray-600">
-                            Don't have an account?{' '}
+                            Already have an account?{' '}
                             <Link 
-                                to="/register" 
+                                to="/login" 
                                 className="font-semibold text-purple-600 hover:text-purple-500 transition duration-200"
                             >
-                                Register Now
+                                Sign In
                             </Link>
                         </p>
                     </div>
                 </div>
+
+                {/* Additional Info */}
+                <p className="mt-6 text-center text-xs text-gray-500">
+                    By creating an account, you agree to our{' '}
+                    <a href="#" className="text-purple-600 hover:text-purple-500">Terms of Service</a>
+                    {' '}and{' '}
+                    <a href="#" className="text-purple-600 hover:text-purple-500">Privacy Policy</a>
+                </p>
             </div>
         </div>
     );
 };
 
-export default Login;
+export default Register;
