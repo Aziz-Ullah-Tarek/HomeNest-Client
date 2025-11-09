@@ -10,7 +10,9 @@ const Layout = () => {
     <div className="min-h-screen flex flex-col">
       {!is404Page && <Navbar />}
       <main className="grow pt-24">
-        <Outlet />
+        <div className="w-11/12 mx-auto">
+          <Outlet />
+        </div>
       </main>
       {!is404Page && <Footer />}
     </div>

@@ -27,7 +27,7 @@ const Footer = () => {
   return (
     <footer className="relative bg-gray-900 text-white">
       {/* CTA Section - Like the image */}
-      <div className="relative bg-gray-800 rounded-t-3xl">
+      {/* <div className="relative bg-gray-800 rounded-t-3xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-8">
             <div className="text-center md:text-left max-w-xl">
@@ -52,7 +52,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Main Footer - Simple Layout */}
       <div className="bg-gray-900">
