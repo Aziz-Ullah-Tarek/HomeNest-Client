@@ -1,19 +1,15 @@
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FaEdit, FaTrash, FaEye, FaMapMarkerAlt, FaCalendar, FaTags, FaDollarSign } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 import { useAuth } from '../providers/AuthProvider';
 
 const MyProperties = () => {
   const { user } = useAuth();
-  const navigate = useNavigate();
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetchMyProperties();
-  }, [user]);
 
   const fetchMyProperties = async () => {
     try {
@@ -28,13 +24,70 @@ const MyProperties = () => {
     }
   };
 
+  useEffect(() => {
+    if (user) {
+      fetchMyProperties();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
+
   const handleDelete = async (id, title) => {
-    if (window.confirm(`Are you sure you want to delete "${title}"?`)) {
+    // Show SweetAlert2 confirmation dialog
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      html: `You are about to delete <strong>"${title}"</strong>.<br/>This action cannot be undone!`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#dc2626',
+      cancelButtonColor: '#6b7280',
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'Cancel',
+      reverseButtons: true,
+      customClass: {
+        popup: 'rounded-2xl',
+        confirmButton: 'rounded-full px-6 py-2.5 font-bold',
+        cancelButton: 'rounded-full px-6 py-2.5 font-bold'
+      }
+    });
+
+    if (result.isConfirmed) {
       try {
+        // Delete from database
         await axios.delete(`http://localhost:3000/api/properties/${id}`);
+        
+        // Instantly update UI without refresh
+        setProperties(prevProperties => 
+          prevProperties.filter(property => property._id !== id)
+        );
+
+        // Show success message
+        Swal.fire({
+          title: 'Deleted!',
+          text: 'Property has been deleted successfully.',
+          icon: 'success',
+          timer: 2000,
+          showConfirmButton: false,
+          customClass: {
+            popup: 'rounded-2xl'
+          }
+        });
+
         toast.success('Property deleted successfully! 🗑️');
-        fetchMyProperties();
       } catch (error) {
+        console.error('Error deleting property:', error);
+        
+        // Show error message
+        Swal.fire({
+          title: 'Error!',
+          text: 'Failed to delete property. Please try again.',
+          icon: 'error',
+          confirmButtonColor: '#9333ea',
+          customClass: {
+            popup: 'rounded-2xl',
+            confirmButton: 'rounded-full px-6 py-2.5 font-bold'
+          }
+        });
+
         toast.error('Failed to delete property');
       }
     }
