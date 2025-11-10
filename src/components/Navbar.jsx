@@ -135,18 +135,15 @@ const Navbar = () => {
                       src={user.photoURL} 
                       alt={user.displayName || 'User'} 
                       className="w-9 h-9 rounded-full object-cover border-2 border-purple-300 group-hover:border-purple-500 transition-all"
-                      onError={(e) => {
-                        e.target.style.display = 'none';
-                        e.target.nextElementSibling.style.display = 'flex';
-                      }}
+                      referrerPolicy="no-referrer"
                     />
-                  ) : null}
-                  <div 
-                    className="w-9 h-9 rounded-full bg-linear-to-r from-purple-600 to-pink-600 flex items-center justify-center group-hover:scale-110 transition-transform"
-                    style={{ display: user.photoURL ? 'none' : 'flex' }}
-                  >
-                    <FaUser className="text-white text-sm" />
-                  </div>
+                  ) : (
+                    <div 
+                      className="w-9 h-9 rounded-full bg-linear-to-r from-purple-600 to-pink-600 flex items-center justify-center group-hover:scale-110 transition-transform"
+                    >
+                      <FaUser className="text-white text-sm" />
+                    </div>
+                  )}
                   <FaChevronDown className={`text-purple-600 transition-transform duration-300 ${showDropdown ? 'rotate-180' : ''}`} />
                 </button>
 
@@ -161,18 +158,15 @@ const Navbar = () => {
                             src={user.photoURL} 
                             alt={user.displayName || 'User'} 
                             className="w-12 h-12 rounded-full object-cover border-3 border-white shadow-lg"
-                            onError={(e) => {
-                              e.target.style.display = 'none';
-                              e.target.nextElementSibling.style.display = 'flex';
-                            }}
+                            referrerPolicy="no-referrer"
                           />
-                        ) : null}
-                        <div 
-                          className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center border-2 border-white"
-                          style={{ display: user.photoURL ? 'none' : 'flex' }}
-                        >
-                          <FaUser className="text-white text-xl" />
-                        </div>
+                        ) : (
+                          <div 
+                            className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center border-2 border-white"
+                          >
+                            <FaUser className="text-white text-xl" />
+                          </div>
+                        )}
                         <div className="flex-1">
                           <h3 className="text-white font-bold text-lg truncate">
                             {user.displayName || 'User'}

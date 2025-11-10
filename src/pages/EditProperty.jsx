@@ -69,7 +69,7 @@ const EditProperty = () => {
       });
       
       toast.success('Property updated successfully! ✨');
-      setTimeout(() => navigate('/my-properties'), 1500);
+      setTimeout(() => navigate(`/properties/${id}`), 1500);
     } catch (error) {
       toast.error('Failed to update property!');
     } finally {
@@ -135,6 +135,21 @@ const EditProperty = () => {
                 <FaAlignLeft className="text-purple-600 mr-2" /> Description *
               </label>
               <textarea name="description" value={formData.description} onChange={handleChange} rows="4" className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-600 outline-none resize-none" required />
+            </div>
+
+            {/* User Info (Read-only) */}
+            <div className="bg-purple-50 rounded-xl p-5 border-2 border-purple-200">
+              <h3 className="text-sm font-bold text-gray-900 mb-3">Contact Information</h3>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-bold text-gray-700 mb-1">User Name</label>
+                  <input type="text" value={user?.displayName || 'Anonymous'} readOnly className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-lg text-sm cursor-not-allowed" />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-gray-700 mb-1">User Email</label>
+                  <input type="email" value={user?.email || ''} readOnly className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-lg text-sm cursor-not-allowed" />
+                </div>
+              </div>
             </div>
 
             <div className="flex gap-4 pt-2">
