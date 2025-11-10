@@ -6,6 +6,7 @@ import PropertyDetails from '../pages/PropertyDetails';
 import Login from '../pages/Login';
 import SignUp from '../pages/Register';
 import AddProperty from '../pages/AddProperty';
+import EditProperty from '../pages/EditProperty';
 import MyProperties from '../pages/MyProperties';
 import MyRatings from '../pages/MyRatings';
 import NotFound from '../pages/NotFound';
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
           {
             path: '/add-property',
             element: <AddProperty />,
+          },
+          {
+            path: '/edit-property/:id',
+            element: <EditProperty />,
           },
           {
             path: '/my-properties',
