@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { FaBed, FaBath, FaRulerCombined, FaMapMarkerAlt, FaHeart, FaShare, FaPhone, FaEnvelope, FaCalendar } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaHeart, FaShare, FaPhone, FaEnvelope, FaCalendar, FaTags } from 'react-icons/fa';
 import axios from 'axios';
 import { useAuth } from '../providers/AuthProvider';
 
@@ -78,7 +78,7 @@ const PropertyDetails = () => {
               />
               <div className="absolute top-6 left-6">
                 <span className="bg-purple-600 text-white px-6 py-3 rounded-full text-sm font-bold">
-                  {property.status}
+                  {property.category}
                 </span>
               </div>
               <div className="absolute top-6 right-6 flex space-x-3">
@@ -114,31 +114,6 @@ const PropertyDetails = () => {
                 </div>
               </div>
 
-              {/* Property Features */}
-              <div className="grid grid-cols-3 gap-6 py-6 border-y border-gray-200">
-                <div className="text-center">
-                  <div className="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <FaBed className="text-purple-600 text-2xl" />
-                  </div>
-                  <p className="text-2xl font-bold text-gray-900">{property.bedrooms}</p>
-                  <p className="text-sm text-gray-600">Bedrooms</p>
-                </div>
-                <div className="text-center">
-                  <div className="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <FaBath className="text-purple-600 text-2xl" />
-                  </div>
-                  <p className="text-2xl font-bold text-gray-900">{property.bathrooms}</p>
-                  <p className="text-sm text-gray-600">Bathrooms</p>
-                </div>
-                <div className="text-center">
-                  <div className="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <FaRulerCombined className="text-purple-600 text-2xl" />
-                  </div>
-                  <p className="text-2xl font-bold text-gray-900">{property.area}</p>
-                  <p className="text-sm text-gray-600">Sq Ft</p>
-                </div>
-              </div>
-
               {/* Description */}
               <div className="mt-6">
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">About This Property</h2>
@@ -152,14 +127,6 @@ const PropertyDetails = () => {
                 <div className="bg-gray-50 p-4 rounded-xl">
                   <p className="text-sm text-gray-600 mb-1">Property Type</p>
                   <p className="text-lg font-bold text-gray-900">{property.category}</p>
-                </div>
-                <div className="bg-gray-50 p-4 rounded-xl">
-                  <p className="text-sm text-gray-600 mb-1">Status</p>
-                  <p className="text-lg font-bold text-gray-900">{property.status}</p>
-                </div>
-                <div className="bg-gray-50 p-4 rounded-xl">
-                  <p className="text-sm text-gray-600 mb-1">Total Area</p>
-                  <p className="text-lg font-bold text-gray-900">{property.area} sqft</p>
                 </div>
                 <div className="bg-gray-50 p-4 rounded-xl flex items-center">
                   <FaCalendar className="text-purple-600 mr-2" />
