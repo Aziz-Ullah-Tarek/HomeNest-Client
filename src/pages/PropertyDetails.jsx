@@ -30,30 +30,75 @@ const PropertyDetails = () => {
     fetchPropertyDetails();
   }, [id]);
 
-  const handleSubmitReview = (e) => {
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3000/api/reviews/property/${id}`);
+        setReviews(response.data);
+      } catch (error) {
+        console.error('Error fetching reviews:', error);
+      }
+    };
+    if (id) {
+      fetchReviews();
+    }
+  }, [id]);
+
+  const handleSubmitReview = async (e) => {
     e.preventDefault();
+    
+    if (!user) {
+      toast.error('Please login to submit a review!');
+      return;
+    }
+    
     if (!rating || rating === 0) {
       toast.error('Please select a rating!');
       return;
     }
+    
     if (!review.trim()) {
       toast.error('Please write a review!');
       return;
     }
     
-    const newReview = {
-      id: Date.now(),
-      userName: user?.displayName || 'Anonymous',
-      userPhoto: user?.photoURL || null,
-      rating: rating / 20, // Convert from 0-100 to 1-5
-      review: review,
-      date: new Date().toISOString()
-    };
-    
-    setReviews([newReview, ...reviews]);
-    setRating(0);
-    setReview('');
-    toast.success('Review submitted successfully! ⭐');
+    try {
+      // Convert rating: react-simple-star-rating returns 0-100, we need 1-5
+      const starRating = rating / 20; // Convert 0-100 to 0-5
+      const finalRating = starRating === 0 ? 1 : Math.ceil(starRating); // Ensure at least 1 star
+      
+      const reviewData = {
+        propertyId: id,
+        propertyName: property.title,
+        propertyImage: property.image,
+        userName: user?.displayName || 'Anonymous',
+        userEmail: user?.email,
+        userPhoto: user?.photoURL || null,
+        rating: finalRating,
+        review: review.trim()
+      };
+      
+      console.log('Submitting review:', reviewData);
+      console.log('Original rating value:', rating, 'Final rating:', finalRating);
+      
+      const response = await axios.post('http://localhost:3000/api/reviews', reviewData);
+      
+      console.log('Review response:', response.data);
+      
+      // Refresh reviews
+      const reviewsResponse = await axios.get(`http://localhost:3000/api/reviews/property/${id}`);
+      setReviews(reviewsResponse.data);
+      
+      // Reset form
+      setRating(0);
+      setReview('');
+      
+      toast.success('Review submitted successfully! ⭐');
+    } catch (error) {
+      console.error('Error submitting review:', error);
+      console.error('Error response:', error.response?.data);
+      toast.error(error.response?.data?.message || 'Failed to submit review. Please try again!');
+    }
   };
 
   if (loading) {
@@ -162,14 +207,23 @@ const PropertyDetails = () => {
           <form onSubmit={handleSubmitReview} className="bg-linear-to-br from-purple-50 to-pink-50 rounded-xl p-6 mb-8">
             <div className="mb-4">
               <label className="block text-sm font-bold text-gray-700 mb-3">Your Rating *</label>
-              <Rating
-                onClick={setRating}
-                ratingValue={rating}
-                size={35}
-                fillColor="#fbbf24"
-                emptyColor="#d1d5db"
-                transition
-              />
+              <div className="flex items-center gap-3">
+                <Rating
+                  onClick={setRating}
+                  ratingValue={rating}
+                  size={40}
+                  fillColor="#fbbf24"
+                  emptyColor="#d1d5db"
+                  transition
+                  allowHover={true}
+                  showTooltip={false}
+                />
+                {rating > 0 && (
+                  <span className="text-lg font-bold text-gray-700">
+                    {(rating / 20).toFixed(1)} / 5.0
+                  </span>
+                )}
+              </div>
             </div>
 
             <div className="mb-4">
@@ -204,7 +258,7 @@ const PropertyDetails = () => {
             ) : (
               <div className="space-y-4">
                 {reviews.map((reviewItem) => (
-                  <div key={reviewItem.id} className="bg-gray-50 rounded-xl p-6">
+                  <div key={reviewItem._id} className="bg-gray-50 rounded-xl p-6">
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex items-center gap-3">
                         {reviewItem.userPhoto ? (
@@ -222,7 +276,7 @@ const PropertyDetails = () => {
                         <div>
                           <p className="font-bold text-gray-900">{reviewItem.userName}</p>
                           <p className="text-xs text-gray-500">
-                            {new Date(reviewItem.date).toLocaleDateString()}
+                            {new Date(reviewItem.createdAt).toLocaleDateString()}
                           </p>
                         </div>
                       </div>

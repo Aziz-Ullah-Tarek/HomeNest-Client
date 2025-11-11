@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FaEdit, FaTrash, FaEye, FaMapMarkerAlt, FaCalendar, FaTags, FaDollarSign } from 'react-icons/fa';
+import { FaEdit, FaTrash, FaEye, FaMapMarkerAlt, FaCalendar, FaTags, FaDollarSign, FaStar, FaStarHalfAlt } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -9,13 +9,78 @@ import { useAuth } from '../providers/AuthProvider';
 const MyProperties = () => {
   const { user } = useAuth();
   const [properties, setProperties] = useState([]);
+  const [propertyReviews, setPropertyReviews] = useState({});
   const [loading, setLoading] = useState(true);
+
+  // Function to render star rating
+  const StarRating = ({ rating, reviewCount }) => {
+    const stars = [];
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 >= 0.5;
+    
+    // Add full stars
+    for (let i = 0; i < fullStars; i++) {
+      stars.push(<FaStar key={`full-${i}`} className="text-yellow-400" />);
+    }
+    
+    // Add half star if needed
+    if (hasHalfStar && fullStars < 5) {
+      stars.push(<FaStarHalfAlt key="half" className="text-yellow-400" />);
+    }
+    
+    // Add empty stars
+    const emptyStars = 5 - stars.length;
+    for (let i = 0; i < emptyStars; i++) {
+      stars.push(<FaStar key={`empty-${i}`} className="text-gray-300" />);
+    }
+    
+    return (
+      <div className="flex items-center gap-1 text-sm">
+        {stars}
+        <span className="ml-1 text-gray-600 font-semibold">
+          {rating > 0 ? rating.toFixed(1) : 'No ratings'}
+        </span>
+        {reviewCount > 0 && (
+          <span className="text-gray-500 text-xs">({reviewCount})</span>
+        )}
+      </div>
+    );
+  };
+
+  const fetchPropertyReviews = async (propertyId) => {
+    try {
+      const response = await axios.get(`http://localhost:3000/api/reviews/property/${propertyId}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching reviews for property:', propertyId, error);
+      return [];
+    }
+  };
+
+  const calculateAverageRating = (reviews) => {
+    if (!reviews || reviews.length === 0) return 0;
+    const sum = reviews.reduce((acc, review) => acc + review.rating, 0);
+    return sum / reviews.length;
+  };
 
   const fetchMyProperties = async () => {
     try {
       const response = await axios.get('http://localhost:3000/api/properties');
       const userProperties = response.data.filter(prop => prop.userEmail === user?.email);
       setProperties(userProperties);
+      
+      // Fetch reviews for each property
+      const reviewsData = {};
+      for (const property of userProperties) {
+        const reviews = await fetchPropertyReviews(property._id);
+        reviewsData[property._id] = {
+          reviews,
+          averageRating: calculateAverageRating(reviews),
+          count: reviews.length
+        };
+      }
+      setPropertyReviews(reviewsData);
+      
       setLoading(false);
     } catch (error) {
       console.error('Error fetching properties:', error);
@@ -141,17 +206,25 @@ const MyProperties = () => {
                 <div className="p-5">
                   <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-1">{property.title}</h3>
                   
+                  {/* Star Rating */}
+                  <div className="mb-3">
+                    <StarRating 
+                      rating={propertyReviews[property._id]?.averageRating || 0} 
+                      reviewCount={propertyReviews[property._id]?.count || 0}
+                    />
+                  </div>
+                  
                   <div className="space-y-2 mb-4">
                     <div className="flex items-center text-sm text-gray-600">
-                      <FaMapMarkerAlt className="text-purple-600 mr-2 flex-shrink-0" />
+                      <FaMapMarkerAlt className="text-purple-600 mr-2 shrink-0" />
                       <span className="line-clamp-1">{property.location}</span>
                     </div>
                     <div className="flex items-center text-sm text-gray-600">
-                      <FaDollarSign className="text-purple-600 mr-2 flex-shrink-0" />
+                      <FaDollarSign className="text-purple-600 mr-2 shrink-0" />
                       <span className="font-bold text-purple-600">${property.price?.toLocaleString()}</span>
                     </div>
                     <div className="flex items-center text-sm text-gray-600">
-                      <FaCalendar className="text-purple-600 mr-2 flex-shrink-0" />
+                      <FaCalendar className="text-purple-600 mr-2 shrink-0" />
                       <span>{new Date(property.createdAt).toLocaleDateString()}</span>
                     </div>
                   </div>

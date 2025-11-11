@@ -1,29 +1,94 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FaMapMarkerAlt, FaDollarSign, FaUser, FaArrowRight, FaTags } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaDollarSign, FaUser, FaArrowRight, FaTags, FaStar, FaStarHalfAlt } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
 const Properties = () => {
   const [properties, setProperties] = useState([]);
+  const [propertyReviews, setPropertyReviews] = useState({});
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState('All');
 
-  useEffect(() => {
-    fetchAllProperties();
-  }, []);
+  // Function to render star rating
+  const StarRating = ({ rating, reviewCount }) => {
+    const stars = [];
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 >= 0.5;
+    
+    // Add full stars
+    for (let i = 0; i < fullStars; i++) {
+      stars.push(<FaStar key={`full-${i}`} className="text-yellow-400" />);
+    }
+    
+    // Add half star if needed
+    if (hasHalfStar && fullStars < 5) {
+      stars.push(<FaStarHalfAlt key="half" className="text-yellow-400" />);
+    }
+    
+    // Add empty stars
+    const emptyStars = 5 - stars.length;
+    for (let i = 0; i < emptyStars; i++) {
+      stars.push(<FaStar key={`empty-${i}`} className="text-gray-300" />);
+    }
+    
+    return (
+      <div className="flex items-center gap-1 text-sm">
+        {stars}
+        <span className="ml-1 text-gray-600 font-semibold">
+          {rating > 0 ? rating.toFixed(1) : 'No ratings'}
+        </span>
+        {reviewCount > 0 && (
+          <span className="text-gray-500 text-xs">({reviewCount})</span>
+        )}
+      </div>
+    );
+  };
 
-  const fetchAllProperties = async () => {
+  const fetchPropertyReviews = async (propertyId) => {
     try {
-      const response = await axios.get('http://localhost:3000/api/properties');
-      setProperties(response.data);
-      setLoading(false);
+      const response = await axios.get(`http://localhost:3000/api/reviews/property/${propertyId}`);
+      return response.data;
     } catch (error) {
-      console.error('Error fetching properties:', error);
-      toast.error('Failed to load properties');
-      setLoading(false);
+      console.error('Error fetching reviews for property:', propertyId, error);
+      return [];
     }
   };
+
+  const calculateAverageRating = (reviews) => {
+    if (!reviews || reviews.length === 0) return 0;
+    const sum = reviews.reduce((acc, review) => acc + review.rating, 0);
+    return sum / reviews.length;
+  };
+
+  useEffect(() => {
+    const fetchAllProperties = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/api/properties');
+        setProperties(response.data);
+        
+        // Fetch reviews for each property
+        const reviewsData = {};
+        for (const property of response.data) {
+          const reviews = await fetchPropertyReviews(property._id);
+          reviewsData[property._id] = {
+            reviews,
+            averageRating: calculateAverageRating(reviews),
+            count: reviews.length
+          };
+        }
+        setPropertyReviews(reviewsData);
+        
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching properties:', error);
+        toast.error('Failed to load properties');
+        setLoading(false);
+      }
+    };
+    
+    fetchAllProperties();
+  }, []);
 
   // Filter properties by category
   const filteredProperties = selectedCategory === 'All' 
@@ -122,9 +187,17 @@ const Properties = () => {
                 {/* Content */}
                 <div className="p-6">
                   {/* Property Name */}
-                  <h3 className="text-xl font-black text-gray-900 mb-3 line-clamp-1 group-hover:text-purple-600 transition-colors">
+                  <h3 className="text-xl font-black text-gray-900 mb-2 line-clamp-1 group-hover:text-purple-600 transition-colors">
                     {property.title}
                   </h3>
+                  
+                  {/* Star Rating */}
+                  <div className="mb-3">
+                    <StarRating 
+                      rating={propertyReviews[property._id]?.averageRating || 0} 
+                      reviewCount={propertyReviews[property._id]?.count || 0}
+                    />
+                  </div>
                   
                   {/* Property Details */}
                   <div className="space-y-2.5 mb-5">
