@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FaMapMarkerAlt, FaDollarSign, FaUser, FaArrowRight, FaTags, FaStar, FaStarHalfAlt } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaDollarSign, FaUser, FaArrowRight, FaTags, FaStar, FaStarHalfAlt, FaSortAmountDown, FaSortAmountUp } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
@@ -9,6 +9,8 @@ const Properties = () => {
   const [propertyReviews, setPropertyReviews] = useState({});
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [sortBy, setSortBy] = useState('date');
+  const [sortOrder, setSortOrder] = useState('desc');
 
   // Function to render star rating
   const StarRating = ({ rating, reviewCount }) => {
@@ -64,7 +66,8 @@ const Properties = () => {
   useEffect(() => {
     const fetchAllProperties = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/properties');
+        setLoading(true);
+        const response = await axios.get(`http://localhost:3000/api/properties?sortBy=${sortBy}&order=${sortOrder}`);
         setProperties(response.data);
         
         // Fetch reviews for each property
@@ -88,7 +91,7 @@ const Properties = () => {
     };
     
     fetchAllProperties();
-  }, []);
+  }, [sortBy, sortOrder]);
 
   // Filter properties by category
   const filteredProperties = selectedCategory === 'All' 
@@ -126,21 +129,82 @@ const Properties = () => {
           </div>
         </div>
 
-        {/* Category Filter */}
-        <div className="mb-8 flex flex-wrap justify-center gap-3">
-          {categories.map((category) => (
+        {/* Category Filter and Sort Options */}
+        <div className="mb-8 space-y-4">
+          {/* Category Filter */}
+          <div className="flex flex-wrap justify-center gap-3">
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => setSelectedCategory(category)}
+                className={`px-6 py-2.5 rounded-full font-bold text-sm transition-all duration-300 ${
+                  selectedCategory === category
+                    ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg scale-105'
+                    : 'bg-white text-gray-700 hover:bg-gray-100 shadow-md hover:shadow-lg'
+                }`}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+
+          {/* Sort Options */}
+          <div className="flex flex-wrap justify-center items-center gap-3">
+            <span className="text-gray-700 font-semibold text-sm">Sort by:</span>
+            
+            {/* Sort Type Buttons */}
+            <div className="flex gap-2">
+              <button
+                onClick={() => setSortBy('date')}
+                className={`px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
+                  sortBy === 'date'
+                    ? 'bg-purple-600 text-white shadow-md'
+                    : 'bg-white text-gray-700 hover:bg-gray-100 shadow-sm'
+                }`}
+              >
+                Date Posted
+              </button>
+              <button
+                onClick={() => setSortBy('price')}
+                className={`px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
+                  sortBy === 'price'
+                    ? 'bg-purple-600 text-white shadow-md'
+                    : 'bg-white text-gray-700 hover:bg-gray-100 shadow-sm'
+                }`}
+              >
+                Price
+              </button>
+              <button
+                onClick={() => setSortBy('title')}
+                className={`px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
+                  sortBy === 'title'
+                    ? 'bg-purple-600 text-white shadow-md'
+                    : 'bg-white text-gray-700 hover:bg-gray-100 shadow-sm'
+                }`}
+              >
+                Title
+              </button>
+            </div>
+
+            {/* Sort Order Toggle */}
             <button
-              key={category}
-              onClick={() => setSelectedCategory(category)}
-              className={`px-6 py-2.5 rounded-full font-bold text-sm transition-all duration-300 ${
-                selectedCategory === category
-                  ? 'bg-linear-to-r from-purple-600 to-pink-600 text-white shadow-lg scale-105'
-                  : 'bg-white text-gray-700 hover:bg-gray-100 shadow-md hover:shadow-lg'
-              }`}
+              onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
+              className="flex items-center gap-2 px-4 py-2 bg-white hover:bg-gray-100 text-gray-700 rounded-lg font-semibold text-sm shadow-sm transition-all"
+              title={sortOrder === 'asc' ? 'Ascending' : 'Descending'}
             >
-              {category}
+              {sortOrder === 'asc' ? (
+                <>
+                  <FaSortAmountUp className="text-purple-600" />
+                  <span>Low to High</span>
+                </>
+              ) : (
+                <>
+                  <FaSortAmountDown className="text-purple-600" />
+                  <span>High to Low</span>
+                </>
+              )}
             </button>
-          ))}
+          </div>
         </div>
 
         {/* Properties Count */}
@@ -187,7 +251,7 @@ const Properties = () => {
                 {/* Content */}
                 <div className="p-6">
                   {/* Property Name */}
-                  <h3 className="text-xl font-black text-gray-900 dark:text-gray-100 mb-2 line-clamp-1 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                  <h3 className="text-xl font-black text-gray-900 dark:text-gray-500 mb-2 line-clamp-1 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
                     {property.title}
                   </h3>
                   

@@ -71,7 +71,7 @@ const Login = () => {
                         <div className="mx-auto w-12 h-12 bg-linear-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center mb-3">
                             <FaLock className="text-white text-xl" />
                         </div>
-                        <h2 className="text-2xl font-black text-gray-900 dark:text-gray-100">Login Now</h2>
+                        <h2 className="text-2xl font-black text-gray-900 dark:text-gray-600">Login Now</h2>
                         <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
                             Sign in to access your account
                         </p>

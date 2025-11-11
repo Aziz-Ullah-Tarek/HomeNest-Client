@@ -129,7 +129,7 @@ const Footer = () => {
               </div>
               <div>
                 <div>
-                <p className='text-sm mt-1'>Developed by <a  className="text-pink-500 text-sm hover:underline " href="https://github.com/Aziz-Ullah-Tarek">Aziz Ullah</a></p>
+                <p className='text-sm mt-1'>Developed by <a  className="text-pink-500 text-sm hover:underline " href="https://github.com/Aziz-Ullah-Tarek"> Aziz Ullah</a></p>
               </div>
               </div>
             </div>
