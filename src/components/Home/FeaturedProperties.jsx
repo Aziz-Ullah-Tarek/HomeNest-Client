@@ -26,8 +26,8 @@ const FeaturedProperties = () => {
     return (
       <div className="py-20">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-black text-gray-900 mb-4">Featured Properties</h2>
-          <p className="text-gray-600">Discover our handpicked selection</p>
+          <h2 className="text-4xl font-black  text-gray-900 mb-4">Featured Properties</h2>
+          <p className="text-gray-700">Discover our handpicked selection</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {[1, 2, 3, 4, 5, 6].map((i) => (
@@ -42,15 +42,15 @@ const FeaturedProperties = () => {
     <section className="py-20 bg-gray-50">
       <div className="text-center mb-12">
         <span className="text-purple-600 dark:text-purple-400 font-bold text-sm uppercase tracking-wider">Premium Selection</span>
-        <h2 className="text-4xl md:text-5xl font-black text-gray-900 dark:text-gray-100 mb-4 mt-2">Featured Properties</h2>
-        <p className="text-gray-600 dark:text-gray-400 text-lg max-w-2xl mx-auto">
+        <h2 className="text-4xl md:text-5xl font-black text-gray-900 dark:text-gray-500 mb-4 mt-2">Featured Properties</h2>
+        <p className="text-gray-600 dark:text-gray-500 text-lg max-w-2xl mx-auto">
           Discover our handpicked selection of premium properties
         </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {properties.map((property) => (
-          <div key={property._id} className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group hover:-translate-y-2 border border-gray-100">
+          <div key={property._id} className="dark:bg-gray-200 bg-gray-50 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group hover:-translate-y-2 border border-gray-100">
             <div className="relative h-56 overflow-hidden">
               <img src={property.image} alt={property.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
               <div className="absolute top-4 left-4">
@@ -63,8 +63,8 @@ const FeaturedProperties = () => {
                 <FaMapMarkerAlt className="text-purple-600 dark:text-purple-400 mr-2" />
                 <span>{property.location}</span>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3 line-clamp-2 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">{property.title}</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-2">{property.description}</p>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-gray-500 mb-3 line-clamp-2 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">{property.title}</h3>
+              <p className="text-gray-600 dark:text-gray-500 text-sm mb-4 line-clamp-2">{property.description}</p>
               <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
                 <div>
                   <p className="text-xs text-gray-600 dark:text-gray-400">Price</p>

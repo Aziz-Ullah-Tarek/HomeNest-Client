@@ -172,8 +172,8 @@ const MyProperties = () => {
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-4xl font-black text-gray-900 dark:text-gray-400 mb-2">My Properties</h1>
-            <p className="text-gray-600 dark:text-gray-400">Manage your property listings</p>
+            <h1 className="text-4xl font-black text-gray-900 dark:text-gray-600 mb-2">My Properties</h1>
+            <p className="text-gray-600 dark:text-gray-500">Manage your property listings</p>
           </div>
           <Link to="/add-property" className="bg-linear-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-full font-bold hover:from-purple-700 hover:to-pink-700 transition-all shadow-lg hover:shadow-xl">
             + Add New Property
@@ -204,7 +204,7 @@ const MyProperties = () => {
 
                 {/* Content */}
                 <div className="p-5">
-                  <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2 line-clamp-1">{property.title}</h3>
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-gray-500 mb-2 line-clamp-1">{property.title}</h3>
                   
                   {/* Star Rating */}
                   <div className="mb-3">

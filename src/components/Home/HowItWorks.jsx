@@ -36,7 +36,7 @@ const HowItWorks = () => {
     <section className="py-20 bg-gray-100">
       <div className="text-center mb-16">
         <span className="text-purple-600 dark:text-purple-400 font-bold text-sm uppercase tracking-wider">Simple Process</span>
-        <h2 className="text-4xl md:text-5xl font-black text-gray-900 dark:text-gray-100 mb-4 mt-2">How It Works</h2>
+        <h2 className="text-4xl md:text-5xl font-black text-gray-900 dark:text-gray-600 mb-4 mt-2">How It Works</h2>
         <p className="text-gray-600 dark:text-gray-400 text-lg max-w-3xl mx-auto">
           Finding your dream home is easy with our streamlined 4-step process
         </p>
@@ -54,7 +54,7 @@ const HowItWorks = () => {
             <div className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-4 border-2 border-transparent hover:border-purple-300 h-full">
               {/* Step Number */}
               <div className="absolute -top-6 left-8">
-                <span className="text-6xl font-black text-gray-100 dark:text-gray-800 group-hover:text-purple-100 dark:group-hover:text-purple-900 transition-colors">
+                <span className="text-6xl font-black text-gray-200 dark:text-gray-400 group-hover:text-purple-100 dark:group-hover:text-purple-900 transition-colors">
                   {item.step}
                 </span>
               </div>
@@ -65,10 +65,10 @@ const HowItWorks = () => {
               </div>
 
               {/* Content */}
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-600 mb-3 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
                 {item.title}
               </h3>
-              <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+              <p className="text-gray-600 dark:text-gray-500 leading-relaxed">
                 {item.description}
               </p>
             </div>

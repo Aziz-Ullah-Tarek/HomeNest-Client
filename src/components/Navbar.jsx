@@ -96,7 +96,7 @@ const Navbar = () => {
                   `flex items-center space-x-2 px-5 py-2.5 rounded-full font-semibold text-sm transition-all duration-300 ${
                     isActive
                       ? 'bg-linear-to-r from-purple-600 to-pink-600 text-white shadow-lg scale-105'
-                      : 'text-gray-700 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 hover:text-purple-600 dark:hover:text-purple-400 hover:shadow-md'
+                      : 'text-gray-700 dark:text-gray-500 hover:bg-white dark:hover:bg-gray-700 hover:text-purple-600 dark:hover:text-purple-400 hover:shadow-md'
                   }`
                 }
               >
@@ -113,7 +113,7 @@ const Navbar = () => {
                   `flex items-center space-x-2 px-5 py-2.5 rounded-full font-semibold text-sm transition-all duration-300 ${
                     isActive
                       ? 'bg-linear-to-r from-purple-600 to-pink-600 text-white shadow-lg scale-105'
-                      : 'text-gray-700 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 hover:text-purple-600 dark:hover:text-purple-400 hover:shadow-md'
+                      : 'text-gray-700 dark:text-gray-500 hover:bg-white dark:hover:bg-gray-700 hover:text-purple-600 dark:hover:text-purple-400 hover:shadow-md'
                   }`
                 }
               >
