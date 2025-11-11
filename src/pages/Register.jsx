@@ -89,10 +89,10 @@ const Register = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-purple-50 via-pink-50 to-blue-50 py-8 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen flex items-center justify-center bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
             <div className="max-w-md w-full">
                 {/* Card Container */}
-                <div className="bg-white rounded-2xl shadow-2xl p-6 space-y-6">
+                <div className="bg-white rounded-2xl shadow-2xl p-6 space-y-6 border border-gray-100">
                     {/* Header */}
                     <div className="text-center">
                         <div className="mx-auto w-12 h-12 bg-linear-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center mb-3">

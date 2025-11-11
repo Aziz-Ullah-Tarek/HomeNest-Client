@@ -58,11 +58,11 @@ const AddProperty = () => {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-gray-50 to-purple-50 py-12">
+    <div className="min-h-screen bg-gray-50 py-12">
       <div className="max-w-3xl mx-auto px-4">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-black text-gray-900 mb-2">Add New Property</h1>
-          <p className="text-gray-600">List your property and reach potential buyers</p>
+          <h1 className="text-4xl font-black text-gray-400 mb-2">Add New Property</h1>
+          <p className="text-gray-500">List your property and reach potential buyers</p>
         </div>
 
         <div className="bg-white rounded-2xl shadow-xl p-8">
@@ -171,7 +171,7 @@ const AddProperty = () => {
             </div>
 
             {/* User Info (Read-only) */}
-            <div className="bg-purple-50 rounded-xl p-5 border-2 border-purple-200">
+            <div className="bg-gray-100 rounded-xl p-5 border-2 border-purple-200">
               <h3 className="text-sm font-bold text-gray-900 mb-3">Contact Information</h3>
               <div className="grid grid-cols-2 gap-4">
                 <div>

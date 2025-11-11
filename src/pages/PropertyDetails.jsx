@@ -139,7 +139,7 @@ const PropertyDetails = () => {
         </div>
 
         {/* Property Info */}
-        <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
+        <div className="bg-white rounded-2xl p-8 shadow-lg mb-8 border border-gray-100">
           <h1 className="text-4xl font-black text-gray-900 mb-4">{property.title}</h1>
           
           <div className="flex items-center text-gray-600 text-lg mb-6">
@@ -148,7 +148,7 @@ const PropertyDetails = () => {
           </div>
 
           <div className="text-4xl font-black text-purple-600 mb-6">
-            ${property.price?.toLocaleString()}
+            ${property.price.toLocaleString()}
           </div>
 
           <div className="mb-6">
@@ -157,7 +157,7 @@ const PropertyDetails = () => {
           </div>
 
           {/* Posted By & Date */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-6 border-t">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-6 border-t border-gray-200 dark:border-gray-700">
             <div className="flex items-center gap-3">
               {property.userPhoto ? (
                 <img 
@@ -197,15 +197,15 @@ const PropertyDetails = () => {
         </div>
 
         {/* Ratings & Reviews */}
-        <div className="bg-white rounded-2xl p-8 shadow-lg">
+        <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
           <h2 className="text-3xl font-black text-gray-900 mb-6 flex items-center gap-2">
             <FaStar className="text-yellow-400" />
             Ratings & Reviews
           </h2>
 
           {/* Add Review Form */}
-          <form onSubmit={handleSubmitReview} className="bg-linear-to-br from-purple-50 to-pink-50 rounded-xl p-6 mb-8">
-            <div className="mb-4">
+          <form onSubmit={handleSubmitReview} className="bg-linear-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl p-6 mb-8 border border-purple-100 dark:border-purple-800/50">
+            <div className="mb-6">
               <label className="block text-sm font-bold text-gray-700 mb-3">Your Rating *</label>
               <div className="flex items-center gap-3">
                 <Rating
@@ -247,18 +247,18 @@ const PropertyDetails = () => {
 
           {/* Reviews List */}
           <div>
-            <h3 className="text-xl font-bold text-gray-900 mb-4">All Reviews ({reviews.length})</h3>
+            <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">All Reviews ({reviews.length})</h3>
             
             {reviews.length === 0 ? (
-              <div className="text-center py-12 bg-gray-50 rounded-xl">
-                <FaStar className="text-gray-300 text-5xl mx-auto mb-4" />
+              <div className="text-center py-12 bg-gray-50 dark:bg-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-700">
+                <FaStar className="text-gray-300 dark:text-gray-600 text-5xl mx-auto mb-4" />
                 <p className="text-gray-500 font-semibold">No reviews yet</p>
                 <p className="text-sm text-gray-400">Be the first to review this property!</p>
               </div>
             ) : (
               <div className="space-y-4">
                 {reviews.map((reviewItem) => (
-                  <div key={reviewItem._id} className="bg-gray-50 rounded-xl p-6">
+                  <div key={reviewItem._id} className="bg-gray-50 rounded-xl p-6 border border-gray-200">
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex items-center gap-3">
                         {reviewItem.userPhoto ? (
@@ -274,8 +274,8 @@ const PropertyDetails = () => {
                           </div>
                         )}
                         <div>
-                          <p className="font-bold text-gray-900">{reviewItem.userName}</p>
-                          <p className="text-xs text-gray-500">
+                          <p className="font-bold text-gray-900 dark:text-gray-100">{reviewItem.userName}</p>
+                          <p className="text-xs text-gray-500 dark:text-gray-400">
                             {new Date(reviewItem.createdAt).toLocaleDateString()}
                           </p>
                         </div>
@@ -284,12 +284,12 @@ const PropertyDetails = () => {
                         {[...Array(5)].map((_, i) => (
                           <FaStar 
                             key={i} 
-                            className={i < reviewItem.rating ? 'text-yellow-400' : 'text-gray-300'}
+                            className={i < reviewItem.rating ? 'text-yellow-400' : 'text-gray-300 dark:text-gray-600'}
                           />
                         ))}
                       </div>
                     </div>
-                    <p className="text-gray-700">{reviewItem.review}</p>
+                    <p className="text-gray-700 dark:text-gray-300">{reviewItem.review}</p>
                   </div>
                 ))}
               </div>

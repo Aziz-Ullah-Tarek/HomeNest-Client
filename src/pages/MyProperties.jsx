@@ -167,13 +167,13 @@ const MyProperties = () => {
   }
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-gray-50 to-purple-50 py-12">
+    <div className="min-h-screen bg-gray-50 py-12">
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-4xl font-black text-gray-900 mb-2">My Properties</h1>
-            <p className="text-gray-600">Manage your property listings</p>
+            <h1 className="text-4xl font-black text-gray-900 dark:text-gray-400 mb-2">My Properties</h1>
+            <p className="text-gray-600 dark:text-gray-400">Manage your property listings</p>
           </div>
           <Link to="/add-property" className="bg-linear-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-full font-bold hover:from-purple-700 hover:to-pink-700 transition-all shadow-lg hover:shadow-xl">
             + Add New Property
@@ -182,10 +182,10 @@ const MyProperties = () => {
 
         {/* Properties Grid */}
         {properties.length === 0 ? (
-          <div className="bg-white rounded-2xl p-12 text-center shadow-lg">
+          <div className="bg-white rounded-2xl p-12 text-center shadow-lg border border-gray-100">
             <div className="text-6xl mb-4">🏠</div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">No Properties Yet</h3>
-            <p className="text-gray-600 mb-6">Start by adding your first property listing</p>
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-400 mb-2">No Properties Yet</h3>
+            <p className="text-gray-600 dark:text-gray-400 mb-6">Start by adding your first property listing</p>
             <Link to="/add-property" className="inline-block bg-purple-600 text-white px-6 py-3 rounded-full font-bold hover:bg-purple-700">
               Add Property
             </Link>
@@ -193,7 +193,7 @@ const MyProperties = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {properties.map((property) => (
-              <div key={property._id} className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group">
+              <div key={property._id} className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group border border-gray-100">
                 {/* Image */}
                 <div className="relative h-48 overflow-hidden">
                   <img src={property.image} alt={property.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
@@ -204,7 +204,7 @@ const MyProperties = () => {
 
                 {/* Content */}
                 <div className="p-5">
-                  <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-1">{property.title}</h3>
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2 line-clamp-1">{property.title}</h3>
                   
                   {/* Star Rating */}
                   <div className="mb-3">
@@ -215,16 +215,16 @@ const MyProperties = () => {
                   </div>
                   
                   <div className="space-y-2 mb-4">
-                    <div className="flex items-center text-sm text-gray-600">
-                      <FaMapMarkerAlt className="text-purple-600 mr-2 shrink-0" />
+                    <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                      <FaMapMarkerAlt className="text-purple-600 dark:text-purple-400 mr-2 shrink-0" />
                       <span className="line-clamp-1">{property.location}</span>
                     </div>
-                    <div className="flex items-center text-sm text-gray-600">
-                      <FaDollarSign className="text-purple-600 mr-2 shrink-0" />
-                      <span className="font-bold text-purple-600">${property.price?.toLocaleString()}</span>
+                    <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                      <FaDollarSign className="text-purple-600 dark:text-purple-400 mr-2 shrink-0" />
+                      <span className="font-bold text-purple-600 dark:text-purple-400">${property.price?.toLocaleString()}</span>
                     </div>
-                    <div className="flex items-center text-sm text-gray-600">
-                      <FaCalendar className="text-purple-600 mr-2 shrink-0" />
+                    <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                      <FaCalendar className="text-purple-600 dark:text-purple-400 mr-2 shrink-0" />
                       <span>{new Date(property.createdAt).toLocaleDateString()}</span>
                     </div>
                   </div>
@@ -249,19 +249,19 @@ const MyProperties = () => {
 
         {/* Stats */}
         {properties.length > 0 && (
-          <div className="mt-8 bg-white rounded-2xl p-6 shadow-lg">
+          <div className="mt-8 bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
             <div className="grid grid-cols-3 gap-4 text-center">
               <div>
-                <p className="text-3xl font-black text-purple-600">{properties.length}</p>
-                <p className="text-sm text-gray-600">Total Properties</p>
+                <p className="text-3xl font-black text-purple-600 dark:text-purple-400">{properties.length}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Total Properties</p>
               </div>
               <div>
-                <p className="text-3xl font-black text-purple-600">{properties.filter(p => p.category === 'Sale').length}</p>
-                <p className="text-sm text-gray-600">For Sale</p>
+                <p className="text-3xl font-black text-purple-600 dark:text-purple-400">{properties.filter(p => p.category === 'Sale').length}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">For Sale</p>
               </div>
               <div>
-                <p className="text-3xl font-black text-purple-600">{properties.filter(p => p.category === 'Rent').length}</p>
-                <p className="text-sm text-gray-600">For Rent</p>
+                <p className="text-3xl font-black text-purple-600 dark:text-purple-400">{properties.filter(p => p.category === 'Rent').length}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">For Rent</p>
               </div>
             </div>
           </div>

@@ -39,18 +39,18 @@ const FeaturedProperties = () => {
   }
 
   return (
-    <section className="py-20 bg-linear-to-br from-gray-50 to-purple-50">
+    <section className="py-20 bg-gray-50">
       <div className="text-center mb-12">
-        <span className="text-purple-600 font-bold text-sm uppercase tracking-wider">Premium Selection</span>
-        <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-4 mt-2">Featured Properties</h2>
-        <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+        <span className="text-purple-600 dark:text-purple-400 font-bold text-sm uppercase tracking-wider">Premium Selection</span>
+        <h2 className="text-4xl md:text-5xl font-black text-gray-900 dark:text-gray-100 mb-4 mt-2">Featured Properties</h2>
+        <p className="text-gray-600 dark:text-gray-400 text-lg max-w-2xl mx-auto">
           Discover our handpicked selection of premium properties
         </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {properties.map((property) => (
-          <div key={property._id} className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group hover:-translate-y-2">
+          <div key={property._id} className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group hover:-translate-y-2 border border-gray-100">
             <div className="relative h-56 overflow-hidden">
               <img src={property.image} alt={property.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
               <div className="absolute top-4 left-4">
@@ -59,16 +59,16 @@ const FeaturedProperties = () => {
               <button className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm p-3 rounded-full hover:bg-pink-500 hover:text-white transition-all duration-300"><FaHeart /></button>
             </div>
             <div className="p-6">
-              <div className="flex items-center text-gray-600 text-sm mb-2">
-                <FaMapMarkerAlt className="text-purple-600 mr-2" />
+              <div className="flex items-center text-gray-600 dark:text-gray-400 text-sm mb-2">
+                <FaMapMarkerAlt className="text-purple-600 dark:text-purple-400 mr-2" />
                 <span>{property.location}</span>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-purple-600 transition-colors">{property.title}</h3>
-              <p className="text-gray-600 text-sm mb-4 line-clamp-2">{property.description}</p>
-              <div className="flex items-center justify-between pt-4 border-t border-gray-200">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3 line-clamp-2 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">{property.title}</h3>
+              <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-2">{property.description}</p>
+              <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
                 <div>
-                  <p className="text-xs text-gray-600">Price</p>
-                  <p className="text-2xl font-black text-purple-600">
+                  <p className="text-xs text-gray-600 dark:text-gray-400">Price</p>
+                  <p className="text-2xl font-black text-purple-600 dark:text-purple-400">
                     ${property.price?.toLocaleString()}
                   </p>
                 </div>

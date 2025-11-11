@@ -3,7 +3,7 @@ import { FaHome, FaArrowLeft } from 'react-icons/fa';
 
 const NotFound = () => {
   return (
-    <div className="min-h-screen bg-linear-to-br from-purple-50 via-white to-pink-50 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
       <div className="max-w-2xl w-full text-center">
         {/* 404 Animation */}
         <div className="mb-8 animate-bounce">
@@ -16,10 +16,10 @@ const NotFound = () => {
         <div className="text-6xl mb-6">🏠</div>
 
         {/* Message */}
-        <h2 className="text-4xl font-black text-gray-900 mb-4">
+        <h2 className="text-4xl font-black text-gray-900 dark:text-gray-100 mb-4">
           Page Not Found
         </h2>
-        <p className="text-gray-600 text-lg mb-8 max-w-md mx-auto">
+        <p className="text-gray-600 dark:text-gray-400 text-lg mb-8 max-w-md mx-auto">
           Oops! The page you're looking for doesn't exist. It might have been moved or deleted.
         </p>
 

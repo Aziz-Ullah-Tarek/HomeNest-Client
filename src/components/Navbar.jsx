@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { FaHome, FaBars, FaTimes, FaUser, FaBuilding, FaPlusCircle, FaStar, FaChevronDown } from 'react-icons/fa';
+import { FaHome, FaBars, FaTimes, FaUser, FaBuilding, FaPlusCircle, FaStar, FaChevronDown, FaMoon, FaSun } from 'react-icons/fa';
 import { MdRealEstateAgent, MdEmail } from 'react-icons/md';
 import { BiLogIn, BiLogOut } from 'react-icons/bi';
 import { useAuth } from '../providers/AuthProvider';
+import { useTheme } from '../contexts/ThemeContext';
 import { toast } from 'react-toastify';
 
 const Navbar = () => {
@@ -11,6 +12,7 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const { user, logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const dropdownRef = useRef(null);
 
   useEffect(() => {
@@ -60,11 +62,11 @@ const Navbar = () => {
   return (
     <nav className={`fixed w-full top-0 z-50 transition-all duration-500 ${
       scrolled 
-        ? 'bg-white shadow-2xl backdrop-blur-lg' 
-        : 'bg-white/95 backdrop-blur-sm shadow-lg'
+        ? 'bg-white shadow-2xl backdrop-blur-lg border-b border-gray-200' 
+        : 'bg-white/98 backdrop-blur-sm shadow-lg border-b border-gray-100'
     }`}>
       {/* Top accent bar */}
-      <div className="h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
+      <div className="h-1 bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
@@ -93,8 +95,8 @@ const Navbar = () => {
                 className={({ isActive }) =>
                   `flex items-center space-x-2 px-5 py-2.5 rounded-full font-semibold text-sm transition-all duration-300 ${
                     isActive
-                      ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg scale-105'
-                      : 'text-gray-700 hover:bg-white hover:text-purple-600 hover:shadow-md'
+                      ? 'bg-linear-to-r from-purple-600 to-pink-600 text-white shadow-lg scale-105'
+                      : 'text-gray-700 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 hover:text-purple-600 dark:hover:text-purple-400 hover:shadow-md'
                   }`
                 }
               >
@@ -110,8 +112,8 @@ const Navbar = () => {
                 className={({ isActive }) =>
                   `flex items-center space-x-2 px-5 py-2.5 rounded-full font-semibold text-sm transition-all duration-300 ${
                     isActive
-                      ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg scale-105'
-                      : 'text-gray-700 hover:bg-white hover:text-purple-600 hover:shadow-md'
+                      ? 'bg-linear-to-r from-purple-600 to-pink-600 text-white shadow-lg scale-105'
+                      : 'text-gray-700 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 hover:text-purple-600 dark:hover:text-purple-400 hover:shadow-md'
                   }`
                 }
               >
@@ -123,6 +125,19 @@ const Navbar = () => {
 
           {/* Auth Buttons - Modern Design */}
           <div className="hidden lg:flex items-center space-x-3">
+            {/* Theme Toggle */}
+            <button
+              onClick={toggleTheme}
+              className="p-3 rounded-full bg-gray-100 hover:bg-gray-200 transition-all duration-300"
+              aria-label="Toggle theme"
+            >
+              {theme === 'dark' ? (
+                <FaSun className="text-xl text-yellow-500" />
+              ) : (
+                <FaMoon className="text-xl text-purple-600" />
+              )}
+            </button>
+
             {user ? (
               <div className="relative" ref={dropdownRef}>
                 {/* User Profile Button */}
@@ -246,7 +261,7 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Navigation - Slide-in Menu */}
-        <div className={`lg:hidden fixed inset-y-0 right-0 w-80 bg-white shadow-2xl transform transition-transform duration-300 ease-in-out ${
+        <div className={`lg:hidden fixed inset-y-0 right-0 w-80 bg-white shadow-2xl border-l border-gray-200 transform transition-transform duration-300 ease-in-out ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}>
           <div className="h-full overflow-y-auto">
@@ -288,8 +303,8 @@ const Navbar = () => {
                   className={({ isActive }) =>
                     `flex items-center space-x-3 px-4 py-4 rounded-xl font-bold transition-all duration-300 ${
                       isActive
-                        ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg'
-                        : 'text-gray-700 hover:bg-gray-100'
+                        ? 'bg-linear-to-r from-purple-600 to-pink-600 text-white shadow-lg'
+                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
                     }`
                   }
                 >
@@ -301,7 +316,7 @@ const Navbar = () => {
               {user && (
                 <>
                   <div className="pt-2 pb-2">
-                    <div className="border-t border-gray-200"></div>
+                    <div className="border-t border-gray-200 dark:border-gray-700"></div>
                   </div>
                   {privateLinks.map((link) => (
                     <NavLink
@@ -311,8 +326,8 @@ const Navbar = () => {
                       className={({ isActive }) =>
                         `flex items-center space-x-3 px-4 py-4 rounded-xl font-bold transition-all duration-300 ${
                           isActive
-                            ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg'
-                            : 'text-gray-700 hover:bg-gray-100'
+                            ? 'bg-linear-to-r from-purple-600 to-pink-600 text-white shadow-lg'
+                            : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
                         }`
                       }
                     >
@@ -325,7 +340,25 @@ const Navbar = () => {
             </div>
 
             {/* Auth Buttons Mobile */}
-            <div className="p-4 space-y-3 border-t border-gray-200">
+            <div className="p-4 space-y-3 border-t border-gray-200 dark:border-gray-700">
+              {/* Theme Toggle Mobile */}
+              <button
+                onClick={toggleTheme}
+                className="w-full flex items-center justify-center space-x-2 bg-gray-100 px-4 py-4 rounded-xl font-bold hover:bg-gray-200 transition-all duration-300"
+              >
+                {theme === 'dark' ? (
+                  <>
+                    <FaSun className="text-xl text-yellow-500" />
+                    <span className="text-gray-800 dark:text-gray-200">Light Mode</span>
+                  </>
+                ) : (
+                  <>
+                    <FaMoon className="text-xl text-purple-600" />
+                    <span className="text-gray-800 dark:text-gray-200">Dark Mode</span>
+                  </>
+                )}
+              </button>
+
               {user ? (
                 <>
                   <div className="flex items-center space-x-3 bg-linear-to-r from-purple-50 to-pink-50 border-2 border-purple-200 px-4 py-3 rounded-xl mb-3">

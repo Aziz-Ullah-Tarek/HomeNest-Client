@@ -100,7 +100,7 @@ const Properties = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-gray-50 to-purple-50">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
           <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-purple-600 mx-auto mb-4"></div>
           <p className="text-gray-600 font-semibold">Loading properties...</p>
@@ -110,11 +110,11 @@ const Properties = () => {
   }
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-gray-50 to-purple-50 py-12">
+    <div className="min-h-screen bg-gray-50 py-12">
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-10">
-          <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-3">
+          <h1 className="text-4xl md:text-5xl font-black text-gray-600 mb-3">
             All Properties
           </h1>
           <p className="text-gray-600 text-lg">
@@ -152,10 +152,10 @@ const Properties = () => {
 
         {/* Properties Grid */}
         {filteredProperties.length === 0 ? (
-          <div className="bg-white rounded-2xl p-12 text-center shadow-lg">
+          <div className="bg-white rounded-2xl p-12 text-center shadow-lg border border-gray-100">
             <div className="text-6xl mb-4">🏠</div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">No Properties Found</h3>
-            <p className="text-gray-600">
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">No Properties Found</h3>
+            <p className="text-gray-600 dark:text-gray-400">
               {selectedCategory === 'All' 
                 ? 'There are no properties available at the moment.' 
                 : `No properties found in the "${selectedCategory}" category.`}
@@ -166,7 +166,7 @@ const Properties = () => {
             {filteredProperties.map((property) => (
               <div 
                 key={property._id} 
-                className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group hover:-translate-y-1"
+                className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group hover:-translate-y-1 border border-gray-100"
               >
                 {/* Image */}
                 <div className="relative h-56 overflow-hidden">
@@ -187,7 +187,7 @@ const Properties = () => {
                 {/* Content */}
                 <div className="p-6">
                   {/* Property Name */}
-                  <h3 className="text-xl font-black text-gray-900 mb-2 line-clamp-1 group-hover:text-purple-600 transition-colors">
+                  <h3 className="text-xl font-black text-gray-900 dark:text-gray-100 mb-2 line-clamp-1 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
                     {property.title}
                   </h3>
                   
@@ -202,9 +202,9 @@ const Properties = () => {
                   {/* Property Details */}
                   <div className="space-y-2.5 mb-5">
                     {/* Location */}
-                    <div className="flex items-center text-sm text-gray-600">
+                    <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
                       <div className="w-8 h-8 rounded-full bg-purple-50 flex items-center justify-center mr-3 shrink-0">
-                        <FaMapMarkerAlt className="text-purple-600 text-xs" />
+                        <FaMapMarkerAlt className="text-purple-600 dark:text-purple-400 text-xs" />
                       </div>
                       <span className="line-clamp-1 font-medium">{property.location}</span>
                     </div>
@@ -212,17 +212,17 @@ const Properties = () => {
                     {/* Price */}
                     <div className="flex items-center text-sm">
                       <div className="w-8 h-8 rounded-full bg-green-50 flex items-center justify-center mr-3 shrink-0">
-                        <FaDollarSign className="text-green-600 text-xs" />
+                        <FaDollarSign className="text-green-600 dark:text-green-400 text-xs" />
                       </div>
-                      <span className="font-black text-lg text-purple-600">
+                      <span className="font-black text-lg text-purple-600 dark:text-purple-400">
                         ${property.price?.toLocaleString()}
                       </span>
                     </div>
 
                     {/* Posted By */}
-                    <div className="flex items-center text-sm text-gray-600">
+                    <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
                       <div className="w-8 h-8 rounded-full bg-pink-50 flex items-center justify-center mr-3 shrink-0">
-                        <FaUser className="text-pink-600 text-xs" />
+                        <FaUser className="text-pink-600 dark:text-pink-400 text-xs" />
                       </div>
                       <div>
                         <span className="text-xs text-gray-500 font-semibold">Posted by</span>
@@ -247,30 +247,30 @@ const Properties = () => {
 
         {/* Statistics */}
         {properties.length > 0 && (
-          <div className="mt-12 bg-white rounded-2xl p-8 shadow-lg">
-            <h3 className="text-center text-xl font-black text-gray-900 mb-6">Property Statistics</h3>
+          <div className="mt-12 bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+            <h3 className="text-center text-xl font-black text-gray-900 dark:text-gray-100 mb-6">Property Statistics</h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-              <div className="p-4 bg-linear-to-br from-purple-50 to-purple-100 rounded-xl">
-                <p className="text-3xl font-black text-purple-600 mb-1">{properties.length}</p>
-                <p className="text-sm text-gray-600 font-semibold">Total Properties</p>
+              <div className="p-4 bg-linear-to-br from-purple-50 to-purple-100 dark:from-purple-900/30 dark:to-purple-800/30 rounded-xl border border-purple-100 dark:border-purple-700/50">
+                <p className="text-3xl font-black text-purple-600 dark:text-purple-400 mb-1">{properties.length}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400 font-semibold">Total Properties</p>
               </div>
-              <div className="p-4 bg-linear-to-br from-blue-50 to-blue-100 rounded-xl">
-                <p className="text-3xl font-black text-blue-600 mb-1">
+              <div className="p-4 bg-linear-to-br from-blue-50 to-blue-100 dark:from-blue-900/30 dark:to-blue-800/30 rounded-xl border border-blue-100 dark:border-blue-700/50">
+                <p className="text-3xl font-black text-blue-600 dark:text-blue-400 mb-1">
                   {properties.filter(p => p.category === 'Sale').length}
                 </p>
-                <p className="text-sm text-gray-600 font-semibold">For Sale</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400 font-semibold">For Sale</p>
               </div>
-              <div className="p-4 bg-linear-to-br from-green-50 to-green-100 rounded-xl">
-                <p className="text-3xl font-black text-green-600 mb-1">
+              <div className="p-4 bg-linear-to-br from-green-50 to-green-100 dark:from-green-900/30 dark:to-green-800/30 rounded-xl border border-green-100 dark:border-green-700/50">
+                <p className="text-3xl font-black text-green-600 dark:text-green-400 mb-1">
                   {properties.filter(p => p.category === 'Rent').length}
                 </p>
-                <p className="text-sm text-gray-600 font-semibold">For Rent</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400 font-semibold">For Rent</p>
               </div>
-              <div className="p-4 bg-linear-to-br from-pink-50 to-pink-100 rounded-xl">
-                <p className="text-3xl font-black text-pink-600 mb-1">
+              <div className="p-4 bg-linear-to-br from-pink-50 to-pink-100 dark:from-pink-900/30 dark:to-pink-800/30 rounded-xl border border-pink-100 dark:border-pink-700/50">
+                <p className="text-3xl font-black text-pink-600 dark:text-pink-400 mb-1">
                   {properties.filter(p => p.category === 'Commercial' || p.category === 'Land' || p.category === 'Residential').length}
                 </p>
-                <p className="text-sm text-gray-600 font-semibold">Other Types</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400 font-semibold">Other Types</p>
               </div>
             </div>
           </div>

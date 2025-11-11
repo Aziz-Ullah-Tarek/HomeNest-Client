@@ -77,31 +77,31 @@ const MyRatings = () => {
   }
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-purple-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
             My Ratings & Reviews
           </h1>
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-gray-400">
             You have submitted {reviews.length} {reviews.length === 1 ? 'review' : 'reviews'}
           </p>
         </div>
 
         {/* Reviews List */}
         {reviews.length === 0 ? (
-          <div className="text-center py-20">
+          <div className="text-center py-20 bg-white rounded-2xl shadow-lg border border-gray-100">
             <div className="text-6xl mb-4">📝</div>
-            <h3 className="text-2xl font-semibold text-gray-700 mb-2">No Reviews Yet</h3>
-            <p className="text-gray-500">You haven't submitted any reviews yet.</p>
+            <h3 className="text-2xl font-semibold text-gray-700 dark:text-gray-300 mb-2">No Reviews Yet</h3>
+            <p className="text-gray-500 dark:text-gray-400">You haven't submitted any reviews yet.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {reviews.map((review) => (
               <div 
                 key={review._id}
-                className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100"
               >
                 {/* Property Thumbnail */}
                 {review.propertyImage && (
@@ -116,7 +116,7 @@ const MyRatings = () => {
 
                 <div className="p-6">
                   {/* Property Name */}
-                  <h3 className="text-xl font-bold text-gray-800 mb-3">
+                  <h3 className="text-xl font-bold text-gray-800 dark:text-gray-400 mb-3">
                     {review.propertyName}
                   </h3>
 
@@ -129,18 +129,18 @@ const MyRatings = () => {
                       fillColor="#fbbf24"
                       emptyColor="#d1d5db"
                     />
-                    <span className="text-lg font-semibold text-gray-700">
+                    <span className="text-lg font-semibold text-gray-700 dark:text-gray-400">
                       {review.rating}.0
                     </span>
                   </div>
 
                   {/* Review Text */}
-                  <p className="text-gray-600 mb-4 line-clamp-3">
+                  <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
                     {review.review}
                   </p>
 
                   {/* Footer */}
-                  <div className="flex items-center justify-between pt-4 border-t border-gray-200">
+                  <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
                     <div className="flex items-center gap-2">
                       {review.userPhoto && (
                         <img 
