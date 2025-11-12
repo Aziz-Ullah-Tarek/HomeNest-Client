@@ -10,7 +10,7 @@ const FeaturedProperties = () => {
   useEffect(() => {
     const fetchFeaturedProperties = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/properties/featured');
+        const response = await axios.get('https://homenest-server.vercel.app/properties/featured');
         console.log('Fetched featured properties:', response.data.length);
         setProperties(response.data);
         setLoading(false);

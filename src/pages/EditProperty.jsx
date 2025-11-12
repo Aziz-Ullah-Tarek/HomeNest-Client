@@ -24,7 +24,7 @@ const EditProperty = () => {
   useEffect(() => {
     const fetchProperty = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/properties/${id}`);
+        const response = await axios.get(`https://homenest-server.vercel.app/properties/${id}`);
         const property = response.data;
         
         if (property.userEmail !== user?.email) {
@@ -63,7 +63,7 @@ const EditProperty = () => {
 
     setLoading(true);
     try {
-      await axios.put(`http://localhost:3000/properties/${id}`, {
+      await axios.put(`https://homenest-server.vercel.app/properties/${id}`, {
         ...formData,
         price: Number(formData.price)
       });

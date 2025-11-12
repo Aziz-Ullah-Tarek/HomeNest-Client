@@ -43,7 +43,7 @@ const AddProperty = () => {
         createdAt: new Date().toISOString()
       };
 
-      const response = await axios.post('http://localhost:3000/properties', propertyData);
+      const response = await axios.post('https://homenest-server.vercel.app/properties', propertyData);
       
       if (response.data.insertedId) {
         toast.success('Property added successfully! ');

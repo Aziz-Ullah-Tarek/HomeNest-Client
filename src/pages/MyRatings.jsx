@@ -12,7 +12,7 @@ const MyRatings = () => {
 
   const fetchMyReviews = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/reviews/user/${user.email}`);
+      const response = await axios.get(`https://homenest-server.vercel.app/reviews/user/${user.email}`);
       setReviews(response.data);
     } catch (error) {
       console.error('Error fetching reviews:', error);
@@ -43,7 +43,7 @@ const MyRatings = () => {
 
     if (result.isConfirmed) {
       try {
-        await axios.delete(`http://localhost:3000/reviews/${reviewId}`);
+        await axios.delete(`https://homenest-server.vercel.app/reviews/${reviewId}`);
         setReviews(reviews.filter(review => review._id !== reviewId));
         
         Swal.fire({
