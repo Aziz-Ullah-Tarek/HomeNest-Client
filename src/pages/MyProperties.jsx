@@ -49,7 +49,7 @@ const MyProperties = () => {
 
   const fetchPropertyReviews = async (propertyId) => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/reviews/property/${propertyId}`);
+      const response = await axios.get(`http://localhost:3000/reviews/property/${propertyId}`);
       return response.data;
     } catch (error) {
       console.error('Error fetching reviews for property:', propertyId, error);
@@ -65,7 +65,7 @@ const MyProperties = () => {
 
   const fetchMyProperties = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/properties');
+      const response = await axios.get('http://localhost:3000/properties');
       const userProperties = response.data.filter(prop => prop.userEmail === user?.email);
       setProperties(userProperties);
       
@@ -118,7 +118,7 @@ const MyProperties = () => {
     if (result.isConfirmed) {
       try {
         // Delete from database
-        await axios.delete(`http://localhost:3000/api/properties/${id}`);
+        await axios.delete(`http://localhost:3000/properties/${id}`);
         
         // Instantly update UI without refresh
         setProperties(prevProperties => 

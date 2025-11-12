@@ -50,7 +50,7 @@ const Properties = () => {
 
   const fetchPropertyReviews = async (propertyId) => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/reviews/property/${propertyId}`);
+      const response = await axios.get(`http://localhost:3000/reviews/property/${propertyId}`);
       return response.data;
     } catch (error) {
       console.error('Error fetching reviews for property:', propertyId, error);
@@ -68,7 +68,7 @@ const Properties = () => {
     const fetchAllProperties = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`http://localhost:3000/api/properties?sortBy=${sortBy}&order=${sortOrder}`);
+        const response = await axios.get(`http://localhost:3000/properties?sortBy=${sortBy}&order=${sortOrder}`);
         setProperties(response.data);
         
         // Fetch reviews for each property

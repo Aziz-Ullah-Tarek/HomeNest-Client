@@ -24,7 +24,7 @@ const EditProperty = () => {
   useEffect(() => {
     const fetchProperty = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/properties/${id}`);
+        const response = await axios.get(`http://localhost:3000/properties/${id}`);
         const property = response.data;
         
         if (property.userEmail !== user?.email) {
@@ -63,12 +63,12 @@ const EditProperty = () => {
 
     setLoading(true);
     try {
-      await axios.put(`http://localhost:3000/api/properties/${id}`, {
+      await axios.put(`http://localhost:3000/properties/${id}`, {
         ...formData,
         price: Number(formData.price)
       });
       
-      toast.success('Property updated successfully! ✨');
+      toast.success('Property updated successfully! ');
       setTimeout(() => navigate(`/properties/${id}`), 1500);
     } catch (error) {
       toast.error('Failed to update property!');
@@ -154,7 +154,7 @@ const EditProperty = () => {
 
             <div className="flex gap-4 pt-2">
               <button type="submit" disabled={loading} className="flex-1 bg-linear-to-r from-purple-600 to-pink-600 text-white py-3 rounded-xl font-bold hover:from-purple-700 hover:to-pink-700 transition-all disabled:opacity-50">
-                {loading ? 'Updating...' : '✨ Update Property'}
+                {loading ? 'Updating...' : ' Update Property'}
               </button>
               <button type="button" onClick={() => navigate('/my-properties')} className="px-8 py-3 border-2 border-gray-300 text-gray-700 rounded-xl font-bold hover:bg-gray-50">
                 Cancel

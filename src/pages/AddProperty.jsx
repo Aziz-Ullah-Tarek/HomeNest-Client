@@ -43,10 +43,10 @@ const AddProperty = () => {
         createdAt: new Date().toISOString()
       };
 
-      const response = await axios.post('http://localhost:3000/api/properties', propertyData);
+      const response = await axios.post('http://localhost:3000/properties', propertyData);
       
       if (response.data.insertedId) {
-        toast.success('Property added successfully! 🎉');
+        toast.success('Property added successfully! ');
         setFormData({ title: '', description: '', category: '', price: '', location: '', image: '' });
         setTimeout(() => navigate('/my-properties'), 1500);
       }

@@ -19,7 +19,7 @@ const PropertyDetails = () => {
   useEffect(() => {
     const fetchPropertyDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/properties/${id}`);
+        const response = await axios.get(`http://localhost:3000/properties/${id}`);
         setProperty(response.data);
         setLoading(false);
       } catch (error) {
@@ -33,7 +33,7 @@ const PropertyDetails = () => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/reviews/property/${id}`);
+        const response = await axios.get(`http://localhost:3000/reviews/property/${id}`);
         setReviews(response.data);
       } catch (error) {
         console.error('Error fetching reviews:', error);
@@ -81,12 +81,12 @@ const PropertyDetails = () => {
       console.log('Submitting review:', reviewData);
       console.log('Original rating value:', rating, 'Final rating:', finalRating);
       
-      const response = await axios.post('http://localhost:3000/api/reviews', reviewData);
+      const response = await axios.post('http://localhost:3000/reviews', reviewData);
       
       console.log('Review response:', response.data);
       
       // Refresh reviews
-      const reviewsResponse = await axios.get(`http://localhost:3000/api/reviews/property/${id}`);
+      const reviewsResponse = await axios.get(`http://localhost:3000/reviews/property/${id}`);
       setReviews(reviewsResponse.data);
       
       // Reset form

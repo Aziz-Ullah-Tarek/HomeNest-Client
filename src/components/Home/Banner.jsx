@@ -18,7 +18,7 @@ const Banner = () => {
   const fetchSliders = async () => {
     try {
       console.log('Fetching sliders from backend...');
-      const response = await fetch('http://localhost:3000/api/sliders');
+      const response = await fetch('http://localhost:3000/sliders');
       console.log('Response status:', response.status);
       const data = await response.json();
       console.log('Received sliders:', data);

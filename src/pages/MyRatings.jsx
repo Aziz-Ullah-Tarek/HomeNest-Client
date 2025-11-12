@@ -12,7 +12,7 @@ const MyRatings = () => {
 
   const fetchMyReviews = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/reviews/user/${user.email}`);
+      const response = await axios.get(`http://localhost:3000/reviews/user/${user.email}`);
       setReviews(response.data);
     } catch (error) {
       console.error('Error fetching reviews:', error);
@@ -43,7 +43,7 @@ const MyRatings = () => {
 
     if (result.isConfirmed) {
       try {
-        await axios.delete(`http://localhost:3000/api/reviews/${reviewId}`);
+        await axios.delete(`http://localhost:3000/reviews/${reviewId}`);
         setReviews(reviews.filter(review => review._id !== reviewId));
         
         Swal.fire({
@@ -159,7 +159,7 @@ const MyRatings = () => {
                     {/* Delete Button */}
                     <button
                       onClick={() => handleDeleteReview(review._id)}
-                      className="px-4 py-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-600 hover:text-white transition-colors duration-300 font-medium"
+                      className="px-4 py-2 bg-red-400 text-red-600 rounded-lg hover:bg-red-600 hover:text-white transition-colors duration-300 font-medium"
                     >
                       Delete
                     </button>
