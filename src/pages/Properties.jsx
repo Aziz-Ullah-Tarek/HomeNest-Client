@@ -125,7 +125,7 @@ const Properties = () => {
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-10">
-          <h1 className="text-4xl md:text-5xl font-black text-gray-600 mb-3">
+          <h1 className="text-4xl md:text-5xl font-black text-pink-500 mb-3">
             All Properties
           </h1>
           <p className="text-gray-600 text-lg">
@@ -347,29 +347,29 @@ const Properties = () => {
         {/* Statistics */}
         {properties.length > 0 && (
           <div className="mt-12 bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
-            <h3 className="text-center text-xl font-black text-gray-900 dark:text-gray-100 mb-6">Property Statistics</h3>
+            <h3 className="text-center text-xl font-black text-gray-900 dark:text-gray-700 mb-6">Property Statistics</h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
               <div className="p-4 bg-linear-to-br from-purple-50 to-purple-100 dark:from-purple-900/30 dark:to-purple-800/30 rounded-xl border border-purple-100 dark:border-purple-700/50">
-                <p className="text-3xl font-black text-purple-600 dark:text-purple-400 mb-1">{properties.length}</p>
-                <p className="text-sm text-gray-600 dark:text-gray-400 font-semibold">Total Properties</p>
+                <p className="text-3xl font-black text-purple-600 dark:text-purple-600 mb-1">{properties.length}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-600 font-semibold">Total Properties</p>
               </div>
-              <div className="p-4 bg-linear-to-br from-blue-50 to-blue-100 dark:from-blue-900/30 dark:to-blue-800/30 rounded-xl border border-blue-100 dark:border-blue-700/50">
-                <p className="text-3xl font-black text-blue-600 dark:text-blue-400 mb-1">
+              <div className="p-4 bg-linear-to-br from-blue-50 to-blue-100 dark:from-blue-700 dark:to-blue-900/30 rounded-xl border border-blue-100 dark:border-blue-700/50">
+                <p className="text-3xl font-black text-blue-600 dark:text-blue-600 mb-1">
                   {properties.filter(p => p.category === 'Sale').length}
                 </p>
-                <p className="text-sm text-gray-600 dark:text-gray-400 font-semibold">For Sale</p>
+                <p className="text-sm text-gray-600 dark:text-gray-600 font-semibold">For Sale</p>
               </div>
               <div className="p-4 bg-linear-to-br from-green-50 to-green-100 dark:from-green-900/30 dark:to-green-800/30 rounded-xl border border-green-100 dark:border-green-700/50">
                 <p className="text-3xl font-black text-green-600 dark:text-green-400 mb-1">
                   {properties.filter(p => p.category === 'Rent').length}
                 </p>
-                <p className="text-sm text-gray-600 dark:text-gray-400 font-semibold">For Rent</p>
+                <p className="text-sm text-gray-600 dark:text-gray-600 font-semibold">For Rent</p>
               </div>
               <div className="p-4 bg-linear-to-br from-pink-50 to-pink-100 dark:from-pink-900/30 dark:to-pink-800/30 rounded-xl border border-pink-100 dark:border-pink-700/50">
-                <p className="text-3xl font-black text-pink-600 dark:text-pink-400 mb-1">
+                <p className="text-3xl font-black text-pink-600 dark:text-pink-600 mb-1">
                   {properties.filter(p => p.category === 'Commercial' || p.category === 'Land' || p.category === 'Residential').length}
                 </p>
-                <p className="text-sm text-gray-600 dark:text-gray-400 font-semibold">Other Types</p>
+                <p className="text-sm text-gray-600 dark:text-gray-600 font-semibold">Other Types</p>
               </div>
             </div>
           </div>

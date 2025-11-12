@@ -172,7 +172,7 @@ const MyProperties = () => {
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-4xl font-black text-gray-900 dark:text-gray-600 mb-2">My Properties</h1>
+            <h1 className="text-4xl font-black text-gray-900 dark:text-pink-600 mb-2">My Properties</h1>
             <p className="text-gray-600 dark:text-gray-500">Manage your property listings</p>
           </div>
           <Link to="/add-property" className="bg-linear-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-full font-bold hover:from-purple-700 hover:to-pink-700 transition-all shadow-lg hover:shadow-xl">
