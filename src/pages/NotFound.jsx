@@ -16,7 +16,7 @@ const NotFound = () => {
         <div className="text-6xl mb-6">🏠</div>
 
         {/* Message */}
-        <h2 className="text-4xl font-black text-gray-900 dark:text-gray-100 mb-4">
+        <h2 className="text-4xl font-black text-gray-900 dark:text-gray-500 mb-4">
           Page Not Found
         </h2>
         <p className="text-gray-600 dark:text-gray-400 text-lg mb-8 max-w-md mx-auto">
