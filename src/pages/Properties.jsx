@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FaMapMarkerAlt, FaDollarSign, FaUser, FaArrowRight, FaTags, FaStar, FaStarHalfAlt, FaSortAmountDown, FaSortAmountUp } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaDollarSign, FaUser, FaArrowRight, FaTags, FaStar, FaStarHalfAlt, FaSortAmountDown, FaSortAmountUp, FaSearch } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
@@ -11,6 +11,7 @@ const Properties = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [sortBy, setSortBy] = useState('date');
   const [sortOrder, setSortOrder] = useState('desc');
+  const [searchTerm, setSearchTerm] = useState('');
 
   // Function to render star rating
   const StarRating = ({ rating, reviewCount }) => {
@@ -93,10 +94,17 @@ const Properties = () => {
     fetchAllProperties();
   }, [sortBy, sortOrder]);
 
-  // Filter properties by category
-  const filteredProperties = selectedCategory === 'All' 
-    ? properties 
-    : properties.filter(property => property.category === selectedCategory);
+  // Filter properties by category and search term
+  const filteredProperties = properties.filter(property => {
+    // Filter by category
+    const categoryMatch = selectedCategory === 'All' || property.category === selectedCategory;
+    
+    // Filter by search term (property name/title)
+    const searchMatch = searchTerm === '' || 
+      property.title.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    return categoryMatch && searchMatch;
+  });
 
   // Get unique categories
   const categories = ['All', ...new Set(properties.map(p => p.category))];
@@ -124,9 +132,36 @@ const Properties = () => {
             Explore our complete collection of properties
           </p>
           <div className="mt-2 flex items-center justify-center gap-2">
-            <div className="h-1 w-20 bg-linear-to-r from-purple-600 to-pink-600 rounded-full"></div>
-            <div className="h-1 w-10 bg-linear-to-r from-pink-600 to-purple-600 rounded-full"></div>
+            <div className="h-1 w-20 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full"></div>
+            <div className="h-1 w-10 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full"></div>
           </div>
+        </div>
+
+        {/* Search Bar */}
+        <div className="mb-8 max-w-2xl mx-auto">
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Search properties by name..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full px-6 py-4 pl-14 bg-white border-2 border-gray-200 rounded-2xl focus:outline-none focus:border-purple-600 focus:ring-4 focus:ring-purple-100 transition-all text-gray-800 font-medium shadow-lg"
+            />
+            <FaSearch className="absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl" />
+            {searchTerm && (
+              <button
+                onClick={() => setSearchTerm('')}
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 font-bold text-xl"
+              >
+                ×
+              </button>
+            )}
+          </div>
+          {searchTerm && (
+            <p className="mt-2 text-sm text-gray-600 text-center">
+              Searching for: <span className="font-bold text-purple-600">&quot;{searchTerm}&quot;</span>
+            </p>
+          )}
         </div>
 
         {/* Category Filter and Sort Options */}
