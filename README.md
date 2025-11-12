@@ -1,6 +1,6 @@
 # HomeNest - Find Your Dream Home
 
-**Live Site:** [https://homenest-client36.netlify.app](https://homenest-client36.netlify.app)
+**Live Site:** [https://homenest-client-36.netlify.app](https://homenest-client-36.netlify.app)
 
 **Server API:** [https://homenest-server.vercel.app](https://homenest-server.vercel.app)
 
