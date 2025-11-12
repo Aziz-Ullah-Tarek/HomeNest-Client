@@ -1,36 +1,45 @@
-# 🏠 HomeNest - Find Your Dream Home
+# HomeNest - Find Your Dream Home
 
-**Live Site URL:** [Coming Soon]
+**Live Site:** [https://homenest-client36.netlify.app](https://homenest-client36.netlify.app)
+
+**Server API:** [https://homenest-server.vercel.app](https://homenest-server.vercel.app)
 
 HomeNest is a modern, full-stack real estate property listing platform that connects property seekers with their dream homes. Built with the MERN stack, it offers a seamless experience for browsing, searching, and managing property listings.
 
 ---
 
-## ✨ Key Features
+## Repository Links
 
-- **🔐 Secure Authentication** - Firebase-powered email/password and Google authentication with protected routes and persistent login sessions
-
-- **🌓 Dark/Light Theme Toggle** - Smooth theme switching with localStorage persistence across all pages for comfortable browsing in any lighting condition
-
-- **📱 Fully Responsive Design** - Mobile-first approach with adaptive navigation (hamburger menu for mobile, pill-style nav for desktop) ensuring perfect experience on all devices
-
-- **🔍 Advanced Property Search & Filtering** - Real-time search by property name, category-based filtering (House, Apartment, Studio, Villa), and multi-parameter sorting (by price, date, or title in ascending/descending order)
-
-- **⭐ Rating & Review System** - Authenticated users can rate properties (1-5 stars), write detailed reviews, and view average ratings with total review counts for informed decision-making
-
-- **🏡 Property Management Dashboard** - Complete CRUD operations for property owners including add, edit, delete properties with instant UI updates and image URL integration
-
-- **📊 User Dashboard** - Personalized sections to view "My Properties" with rating insights and "My Ratings" to manage all submitted reviews in one place
-
-- **🎨 Modern UI/UX** - Beautiful gradient designs, smooth animations, interactive hover effects, and Swiper.js-powered image carousels for an engaging user experience
-
-- **⚡ Performance Optimized** - Backend sorting with MongoDB aggregation, frontend caching, lazy loading, and efficient state management for lightning-fast responses
-
-- **🔒 Data Security** - Protected API endpoints, user-specific data access, email-based ownership validation, and secure MongoDB database with proper authentication
+- **Client Repository:** [https://github.com/Aziz-Ullah-Tarek/HomeNest-Client](https://github.com/Aziz-Ullah-Tarek/HomeNest-Client)
+- **Server Repository:** [https://github.com/Aziz-Ullah-Tarek/HomeNest-Server](https://github.com/Aziz-Ullah-Tarek/HomeNest-Server)
 
 ---
 
-## 🛠️ Technologies Used
+## Key Features
+
+- **Secure Authentication** - Firebase-powered email/password and Google authentication with protected routes and persistent login sessions
+
+- **Dark/Light Theme Toggle** - Smooth theme switching with localStorage persistence across all pages for comfortable browsing in any lighting condition
+
+- **Fully Responsive Design** - Mobile-first approach with adaptive navigation (hamburger menu for mobile, pill-style nav for desktop) ensuring perfect experience on all devices
+
+- **Advanced Property Search & Filtering** - Real-time search by property name, category-based filtering (House, Apartment, Studio, Villa), and multi-parameter sorting (by price, date, or title in ascending/descending order)
+
+- **Rating & Review System** - Authenticated users can rate properties (1-5 stars), write detailed reviews, and view average ratings with total review counts for informed decision-making
+
+- **Property Management Dashboard** - Complete CRUD operations for property owners including add, edit, delete properties with instant UI updates and image URL integration
+
+- **User Dashboard** - Personalized sections to view "My Properties" with rating insights and "My Ratings" to manage all submitted reviews in one place
+
+- **Modern UI/UX** - Beautiful gradient designs, smooth animations, interactive hover effects, and Swiper.js-powered image carousels for an engaging user experience
+
+- **Performance Optimized** - Backend sorting with MongoDB aggregation, frontend caching, lazy loading, and efficient state management for lightning-fast responses
+
+- **Data Security** - Protected API endpoints, user-specific data access, email-based ownership validation, and secure MongoDB database with proper authentication
+
+---
+
+## Technologies Used
 
 ### Frontend
 - **React 19.1.1** - Modern UI with hooks and context API
@@ -51,7 +60,7 @@ HomeNest is a modern, full-stack real estate property listing platform that conn
 
 ---
 
-## 🚀 Installation & Setup
+## Installation & Setup
 
 ### Prerequisites
 - Node.js (v18 or higher)
@@ -78,7 +87,7 @@ npm run dev
 
 ---
 
-## 📄 API Endpoints
+## API Endpoints
 
 ### Properties
 - `GET /properties` - Get all properties (with sorting)
@@ -100,17 +109,17 @@ npm run dev
 
 ---
 
-## 👨‍💻 Author
+## Author
 
 **Aziz Ullah Tarek**  
 GitHub: [@Aziz-Ullah-Tarek](https://github.com/Aziz-Ullah-Tarek)
 
 ---
 
-## 📝 License
+## License
 
 This project is open source and available under the MIT License.
 
 ---
 
-**HomeNest** - Where every house becomes a home 🏡✨
+**HomeNest** - Where every house becomes a home
