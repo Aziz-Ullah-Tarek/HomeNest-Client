@@ -121,14 +121,14 @@ const Properties = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-900 py-12">
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-10">
-          <h1 className="text-4xl md:text-5xl font-black text-pink-500 mb-3">
+          <h1 className="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600 mb-3">
             All Properties
           </h1>
-          <p className="text-gray-600 text-lg">
+          <p className="text-gray-600 dark:text-gray-400 text-lg">
             Explore our complete collection of properties
           </p>
           <div className="mt-2 flex items-center justify-center gap-2">
@@ -145,9 +145,9 @@ const Properties = () => {
               placeholder="Search properties by name..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full px-6 py-4 pl-14 bg-white border-2 border-gray-200 rounded-2xl focus:outline-none focus:border-purple-600 focus:ring-4 focus:ring-purple-100 transition-all text-gray-800 font-medium shadow-lg"
+              className="w-full px-6 py-4 pl-14 bg-white dark:bg-slate-800 border-2 border-gray-200 dark:border-slate-700 rounded-2xl focus:outline-none focus:border-purple-600 dark:focus:border-purple-500 focus:ring-4 focus:ring-purple-100 dark:focus:ring-purple-900/30 transition-all text-gray-800 dark:text-white font-medium shadow-lg"
             />
-            <FaSearch className="absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl" />
+            <FaSearch className="absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 text-xl" />
             {searchTerm && (
               <button
                 onClick={() => setSearchTerm('')}

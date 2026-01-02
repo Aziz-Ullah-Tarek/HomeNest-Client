@@ -9,7 +9,7 @@ const Layout = () => {
   const isHomePage = location.pathname === "/";
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-slate-900">
       {/* Navbar hidden on 404 page */}
       {!is404Page && <Navbar />}
 

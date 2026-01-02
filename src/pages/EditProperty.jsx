@@ -78,85 +78,85 @@ const EditProperty = () => {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-gray-50 to-purple-50 py-12">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-900 py-12">
       <div className="max-w-3xl mx-auto px-4">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-black text-gray-900 mb-2">Edit Property</h1>
-          <p className="text-gray-600">Update your property details</p>
+          <h1 className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600 mb-2">Edit Property</h1>
+          <p className="text-gray-600 dark:text-gray-400">Update your property details</p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-xl p-8">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8 border border-gray-100 dark:border-slate-700">
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="flex items-center text-sm font-bold text-gray-700 mb-2">
-                <FaHome className="text-purple-600 mr-2" /> Property Name *
+              <label className="flex items-center text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
+                <FaHome className="text-purple-600 dark:text-purple-400 mr-2" /> Property Name *
               </label>
-              <input type="text" name="title" value={formData.title} onChange={handleChange} className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-600 outline-none" required />
+              <input type="text" name="title" value={formData.title} onChange={handleChange} className="w-full px-4 py-3 border-2 border-gray-300 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-600 outline-none" required />
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="flex items-center text-sm font-bold text-gray-700 mb-2">
-                  <FaTags className="text-purple-600 mr-2" /> Category *
+                <label className="flex items-center text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
+                  <FaTags className="text-purple-600 dark:text-purple-400 mr-2" /> Category *
                 </label>
-                <select name="category" value={formData.category} onChange={handleChange} className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-600 outline-none" required>
+                <select name="category" value={formData.category} onChange={handleChange} className="w-full px-4 py-3 border-2 border-gray-300 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-600 outline-none" required>
                   <option value="">Select Category</option>
                   {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
                 </select>
               </div>
 
               <div>
-                <label className="flex items-center text-sm font-bold text-gray-700 mb-2">
-                  <FaDollarSign className="text-purple-600 mr-2" /> Price (USD) *
+                <label className="flex items-center text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
+                  <FaDollarSign className="text-purple-600 dark:text-purple-400 mr-2" /> Price (USD) *
                 </label>
-                <input type="number" name="price" value={formData.price} onChange={handleChange} min="1" className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-600 outline-none" required />
+                <input type="number" name="price" value={formData.price} onChange={handleChange} min="1" className="w-full px-4 py-3 border-2 border-gray-300 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-600 outline-none" required />
               </div>
             </div>
 
             <div>
-              <label className="flex items-center text-sm font-bold text-gray-700 mb-2">
-                <FaMapMarkerAlt className="text-purple-600 mr-2" /> Location *
+              <label className="flex items-center text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
+                <FaMapMarkerAlt className="text-purple-600 dark:text-purple-400 mr-2" /> Location *
               </label>
-              <input type="text" name="location" value={formData.location} onChange={handleChange} className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-600 outline-none" required />
+              <input type="text" name="location" value={formData.location} onChange={handleChange} className="w-full px-4 py-3 border-2 border-gray-300 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-600 outline-none" required />
             </div>
 
             <div>
-              <label className="flex items-center text-sm font-bold text-gray-700 mb-2">
-                <FaImage className="text-purple-600 mr-2" /> Image Link *
+              <label className="flex items-center text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
+                <FaImage className="text-purple-600 dark:text-purple-400 mr-2" /> Image Link *
               </label>
-              <input type="url" name="image" value={formData.image} onChange={handleChange} className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-600 outline-none" required />
+              <input type="url" name="image" value={formData.image} onChange={handleChange} className="w-full px-4 py-3 border-2 border-gray-300 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-600 outline-none" required />
               {formData.image && (
                 <img src={formData.image} alt="Preview" className="mt-3 w-full h-40 object-cover rounded-xl" onError={(e) => e.target.src = 'https://via.placeholder.com/400x200?text=Invalid+Image'} />
               )}
             </div>
 
             <div>
-              <label className="flex items-center text-sm font-bold text-gray-700 mb-2">
-                <FaAlignLeft className="text-purple-600 mr-2" /> Description *
+              <label className="flex items-center text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
+                <FaAlignLeft className="text-purple-600 dark:text-purple-400 mr-2" /> Description *
               </label>
-              <textarea name="description" value={formData.description} onChange={handleChange} rows="4" className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-600 outline-none resize-none" required />
+              <textarea name="description" value={formData.description} onChange={handleChange} rows="4" className="w-full px-4 py-3 border-2 border-gray-300 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-600 outline-none resize-none" required />
             </div>
 
             {/* User Info (Read-only) */}
-            <div className="bg-purple-50 rounded-xl p-5 border-2 border-purple-200">
-              <h3 className="text-sm font-bold text-gray-900 mb-3">Contact Information</h3>
+            <div className="bg-purple-50 dark:bg-slate-700 rounded-xl p-5 border-2 border-purple-200 dark:border-purple-700">
+              <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-3">Contact Information</h3>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-gray-700 mb-1">User Name</label>
-                  <input type="text" value={user?.displayName || 'Anonymous'} readOnly className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-lg text-sm cursor-not-allowed" />
+                  <label className="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">User Name</label>
+                  <input type="text" value={user?.displayName || 'Anonymous'} readOnly className="w-full px-3 py-2 bg-gray-100 dark:bg-slate-600 border border-gray-300 dark:border-slate-500 rounded-lg text-sm text-gray-700 dark:text-gray-200 cursor-not-allowed" />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-gray-700 mb-1">User Email</label>
-                  <input type="email" value={user?.email || ''} readOnly className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-lg text-sm cursor-not-allowed" />
+                  <label className="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">User Email</label>
+                  <input type="email" value={user?.email || ''} readOnly className="w-full px-3 py-2 bg-gray-100 dark:bg-slate-600 border border-gray-300 dark:border-slate-500 rounded-lg text-sm text-gray-700 dark:text-gray-200 cursor-not-allowed" />
                 </div>
               </div>
             </div>
 
             <div className="flex gap-4 pt-2">
-              <button type="submit" disabled={loading} className="flex-1 bg-linear-to-r from-purple-600 to-pink-600 text-white py-3 rounded-xl font-bold hover:from-purple-700 hover:to-pink-700 transition-all disabled:opacity-50">
-                {loading ? 'Updating...' : ' Update Property'}
+              <button type="submit" disabled={loading} className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 rounded-xl font-bold hover:from-purple-700 hover:to-pink-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+                {loading ? 'Updating...' : 'Update Property'}
               </button>
-              <button type="button" onClick={() => navigate('/my-properties')} className="px-8 py-3 border-2 border-gray-300 text-gray-700 rounded-xl font-bold hover:bg-gray-50">
+              <button type="button" onClick={() => navigate('/my-properties')} className="px-8 py-3 border-2 border-gray-300 dark:border-slate-600 text-gray-700 dark:text-gray-200 rounded-xl font-bold hover:bg-gray-50 dark:hover:bg-slate-700">
                 Cancel
               </button>
             </div>

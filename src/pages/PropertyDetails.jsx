@@ -126,7 +126,7 @@ const PropertyDetails = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-900 py-12">
       <div className="max-w-5xl mx-auto px-4">
         {/* Property Image */}
         <div className="relative h-96 rounded-2xl overflow-hidden shadow-xl mb-8">
@@ -139,15 +139,15 @@ const PropertyDetails = () => {
         </div>
 
         {/* Property Info */}
-        <div className="bg-white rounded-2xl p-8 shadow-lg mb-8 border border-gray-100">
-          <h1 className="text-4xl font-black text-gray-900 mb-4">{property.title}</h1>
+        <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-lg mb-8 border border-gray-100 dark:border-slate-700">
+          <h1 className="text-4xl font-black text-gray-900 dark:text-white mb-4">{property.title}</h1>
           
-          <div className="flex items-center text-gray-600 text-lg mb-6">
-            <FaMapMarkerAlt className="text-purple-600 mr-2" />
+          <div className="flex items-center text-gray-600 dark:text-gray-400 text-lg mb-6">
+            <FaMapMarkerAlt className="text-purple-600 dark:text-purple-400 mr-2" />
             <span>{property.location}</span>
           </div>
 
-          <div className="text-4xl font-black text-purple-600 mb-6">
+          <div className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600 mb-6">
             ${property.price.toLocaleString()}
           </div>
 

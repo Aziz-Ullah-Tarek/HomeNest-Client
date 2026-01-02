@@ -25,7 +25,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="relative bg-gray-900 text-white">
+    <footer className="relative bg-gray-900 dark:bg-slate-950 text-white">
       {/* CTA Section - Like the image */}
       {/* <div className="relative bg-gray-800 rounded-t-3xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -55,7 +55,7 @@ const Footer = () => {
       </div> */}
 
       {/* Main Footer - Simple Layout */}
-      <div className="bg-gray-900">
+      <div className="bg-gray-900 dark:bg-slate-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
             
@@ -66,7 +66,7 @@ const Footer = () => {
                   <MdRealEstateAgent className="text-2xl text-white" />
                 </div>
                 <div>
-                  <h2 className="text-xl font-bold">HomeNest</h2>
+                  <h2 className="text-xl font-bold text-white">HomeNest</h2>
                   <p className="text-xs text-gray-400">Find Your Dream</p>
                 </div>
               </div>
@@ -77,7 +77,7 @@ const Footer = () => {
 
             {/* Quick Links */}
             <div>
-              <h4 className="font-bold mb-4">About</h4>
+              <h4 className="font-bold mb-4 text-white">About</h4>
               <ul className="space-y-2">
                 <li><Link to="/" className="text-gray-400 hover:text-white text-sm transition-colors">Home</Link></li>
                 <li><Link to="/properties" className="text-gray-400 hover:text-white text-sm transition-colors">Properties</Link></li>
@@ -87,7 +87,7 @@ const Footer = () => {
 
             {/* User Links */}
             <div>
-              <h4 className="font-bold mb-4">My Account</h4>
+              <h4 className="font-bold mb-4 text-white">My Account</h4>
               <ul className="space-y-2">
                 <li><Link to="/my-properties" className="text-gray-400 hover:text-white text-sm transition-colors">My Properties</Link></li>
                 <li><Link to="/my-ratings" className="text-gray-400 hover:text-white text-sm transition-colors">My Ratings</Link></li>
@@ -96,7 +96,7 @@ const Footer = () => {
 
             {/* Legal */}
             <div>
-              <h4 className="font-bold mb-4">Legal</h4>
+              <h4 className="font-bold mb-4 text-white">Legal</h4>
               <ul className="space-y-2">
                 <li><Link to="/terms" className="text-gray-400 hover:text-white text-sm transition-colors">Terms and conditions</Link></li>
                 <li><Link to="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors">Privacy Policy</Link></li>
@@ -106,7 +106,7 @@ const Footer = () => {
 
             {/* Contact */}
             <div>
-              <h4 className="font-bold mb-4">Let's chat!</h4>
+              <h4 className="font-bold mb-4 text-white">Let's chat!</h4>
               <a href="mailto:info@homenest.com" className="text-gray-400 hover:text-white text-sm transition-colors block mb-3">
                 info@homenest.com
               </a>
@@ -129,7 +129,7 @@ const Footer = () => {
               </div>
               <div>
                 <div>
-                <p className='text-sm mt-1'>Developed by <a  className="text-pink-500 text-sm hover:underline " href="https://github.com/Aziz-Ullah-Tarek"> Aziz Ullah</a></p>
+                <p className='text-sm mt-1 text-gray-400'>Developed by <a  className="text-pink-500 text-sm hover:underline " href="https://github.com/Aziz-Ullah-Tarek"> Aziz Ullah</a></p>
               </div>
               </div>
             </div>

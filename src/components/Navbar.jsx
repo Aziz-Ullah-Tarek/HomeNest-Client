@@ -48,7 +48,7 @@ const Navbar = () => {
   const allLinks = [...navLinks, ...(user ? privateLinks : [])];
 
   return (
-    <nav className="fixed w-full top-0 z-50 bg-white shadow-lg border-b border-gray-200">
+    <nav className="fixed w-full top-0 z-50 bg-white dark:bg-slate-900 shadow-lg border-b border-gray-200 dark:border-slate-700">
       <div className="h-1 bg-gradient-to-r from-purple-600 to-pink-600"></div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -58,15 +58,15 @@ const Navbar = () => {
           <div className="lg:hidden relative" ref={menuRef}>
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors"
               aria-label="Menu"
             >
-              <FaBars className="text-2xl text-purple-600" />
+              <FaBars className="text-2xl text-purple-600 dark:text-purple-400" />
             </button>
 
             {/* Mobile Dropdown Menu */}
             {menuOpen && (
-              <div className="absolute left-0 mt-2 w-64 bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden">
+              <div className="absolute left-0 mt-2 w-64 bg-white dark:bg-slate-800 rounded-xl shadow-2xl border border-gray-200 dark:border-slate-700 overflow-hidden">
                 <div className="p-2">
                   {allLinks.map((link) => (
                     <NavLink
@@ -77,7 +77,7 @@ const Navbar = () => {
                         `flex items-center space-x-3 px-4 py-3 rounded-lg font-semibold transition-all ${
                           isActive
                             ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white'
-                            : 'text-gray-700 hover:bg-gray-100'
+                            : 'text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700'
                         }`
                       }
                     >
@@ -107,7 +107,7 @@ const Navbar = () => {
           </Link>
 
           {/* Desktop: Navigation Links - Center */}
-          <div className="hidden lg:flex items-center bg-gray-100 rounded-full px-2 py-2 space-x-1">
+          <div className="hidden lg:flex items-center bg-gray-100 dark:bg-slate-800 rounded-full px-2 py-2 space-x-1">
             {navLinks.map((link) => (
               <NavLink
                 key={link.path}
@@ -116,7 +116,7 @@ const Navbar = () => {
                   `flex items-center space-x-2 px-5 py-2.5 rounded-full font-semibold text-sm transition-all duration-300 ${
                     isActive
                       ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg scale-105'
-                      : 'text-gray-700 hover:bg-white hover:text-purple-600 hover:shadow-md'
+                      : 'text-gray-700 dark:text-gray-200 hover:bg-white dark:hover:bg-slate-700 hover:text-purple-600 dark:hover:text-purple-400 hover:shadow-md'
                   }`
                 }
               >
@@ -133,7 +133,7 @@ const Navbar = () => {
                   `flex items-center space-x-2 px-5 py-2.5 rounded-full font-semibold text-sm transition-all duration-300 ${
                     isActive
                       ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg scale-105'
-                      : 'text-gray-700 hover:bg-white hover:text-purple-600 hover:shadow-md'
+                      : 'text-gray-700 dark:text-gray-200 hover:bg-white dark:hover:bg-slate-700 hover:text-purple-600 dark:hover:text-purple-400 hover:shadow-md'
                   }`
                 }
               >
@@ -148,7 +148,7 @@ const Navbar = () => {
             {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
-              className="p-2 lg:p-3 rounded-lg lg:rounded-full bg-gray-100 hover:bg-gray-200 transition-all duration-300"
+              className="p-2 lg:p-3 rounded-lg lg:rounded-full bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 transition-all duration-300"
               aria-label="Toggle theme"
             >
               {theme === 'dark' ? (
@@ -163,7 +163,7 @@ const Navbar = () => {
               <div className="relative" ref={userRef}>
                 <button
                   onClick={() => setUserDropdown(!userDropdown)}
-                  className="flex items-center space-x-2 lg:space-x-3 p-1 lg:p-0 lg:bg-gradient-to-r lg:from-purple-50 lg:to-pink-50 lg:border-2 lg:border-purple-200 lg:px-5 lg:py-2.5 rounded-lg lg:rounded-full hover:bg-gray-100 lg:hover:bg-transparent lg:hover:border-purple-400 transition-all duration-300"
+                  className="flex items-center space-x-2 lg:space-x-3 p-1 lg:p-0 lg:bg-gradient-to-r lg:from-purple-50 lg:to-pink-50 dark:lg:from-slate-800 dark:lg:to-slate-800 lg:border-2 lg:border-purple-200 dark:lg:border-slate-600 lg:px-5 lg:py-2.5 rounded-lg lg:rounded-full hover:bg-gray-100 dark:hover:bg-slate-800 lg:hover:bg-transparent lg:hover:border-purple-400 dark:lg:hover:border-purple-500 transition-all duration-300"
                 >
                   {user.photoURL ? (
                     <img 
@@ -181,7 +181,7 @@ const Navbar = () => {
 
                 {/* User Dropdown */}
                 {userDropdown && (
-                  <div className="absolute right-0 mt-2 lg:mt-3 w-72 bg-white rounded-xl lg:rounded-2xl shadow-2xl border border-gray-200 overflow-hidden z-50">
+                  <div className="absolute right-0 mt-2 lg:mt-3 w-72 bg-white dark:bg-slate-800 rounded-xl lg:rounded-2xl shadow-2xl border border-gray-200 dark:border-slate-700 overflow-hidden z-50">
                     {/* Header */}
                     <div className="bg-gradient-to-r from-purple-600 to-pink-600 px-4 lg:px-6 py-3 lg:py-4">
                       <div className="flex items-center space-x-3">
@@ -209,26 +209,26 @@ const Navbar = () => {
                     {/* Body */}
                     <div className="p-3 lg:p-4 space-y-2 lg:space-y-3">
                       {/* Name */}
-                      <div className="flex items-center space-x-3 p-2 lg:px-3 lg:py-2 rounded-lg bg-gray-50">
-                        <div className="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center">
-                          <FaUser className="text-purple-600 text-xs lg:text-sm" />
+                      <div className="flex items-center space-x-3 p-2 lg:px-3 lg:py-2 rounded-lg bg-gray-50 dark:bg-slate-700">
+                        <div className="w-8 h-8 rounded-full bg-purple-100 dark:bg-purple-900 flex items-center justify-center">
+                          <FaUser className="text-purple-600 dark:text-purple-400 text-xs lg:text-sm" />
                         </div>
                         <div className="flex-1">
-                          <p className="text-[10px] lg:text-xs text-gray-500 font-semibold">Name</p>
-                          <p className="text-xs lg:text-sm text-gray-800 font-bold truncate">
+                          <p className="text-[10px] lg:text-xs text-gray-500 dark:text-gray-400 font-semibold">Name</p>
+                          <p className="text-xs lg:text-sm text-gray-800 dark:text-gray-200 font-bold truncate">
                             {user.displayName || 'Not provided'}
                           </p>
                         </div>
                       </div>
 
                       {/* Email */}
-                      <div className="flex items-center space-x-3 p-2 lg:px-3 lg:py-2 rounded-lg bg-gray-50">
-                        <div className="w-8 h-8 rounded-full bg-pink-100 flex items-center justify-center">
-                          <MdEmail className="text-pink-600 text-xs lg:text-sm" />
+                      <div className="flex items-center space-x-3 p-2 lg:px-3 lg:py-2 rounded-lg bg-gray-50 dark:bg-slate-700">
+                        <div className="w-8 h-8 rounded-full bg-pink-100 dark:bg-pink-900 flex items-center justify-center">
+                          <MdEmail className="text-pink-600 dark:text-pink-400 text-xs lg:text-sm" />
                         </div>
                         <div className="flex-1">
-                          <p className="text-[10px] lg:text-xs text-gray-500 font-semibold">Email</p>
-                          <p className="text-xs lg:text-sm text-gray-800 font-bold truncate">
+                          <p className="text-[10px] lg:text-xs text-gray-500 dark:text-gray-400 font-semibold">Email</p>
+                          <p className="text-xs lg:text-sm text-gray-800 dark:text-gray-200 font-bold truncate">
                             {user.email || 'Not provided'}
                           </p>
                         </div>
