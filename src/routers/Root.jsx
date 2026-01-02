@@ -9,6 +9,8 @@ import AddProperty from '../pages/AddProperty';
 import EditProperty from '../pages/EditProperty';
 import MyProperties from '../pages/MyProperties';
 import MyRatings from '../pages/MyRatings';
+import About from '../pages/About';
+import Contact from '../pages/Contact';
 import NotFound from '../pages/NotFound';
 import PrivateRoute from './PrivateRoute';
 
@@ -24,6 +26,14 @@ const router = createBrowserRouter([
       {
         path: '/properties',
         element: <Properties />,
+      },
+      {
+        path: '/about',
+        element: <About />,
+      },
+      {
+        path: '/contact',
+        element: <Contact />,
       },
       {
         path: '/login',

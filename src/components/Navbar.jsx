@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { FaHome, FaBars, FaUser, FaBuilding, FaPlusCircle, FaStar, FaMoon, FaSun } from 'react-icons/fa';
+import { FaHome, FaBars, FaUser, FaBuilding, FaPlusCircle, FaStar, FaMoon, FaSun, FaInfoCircle, FaEnvelope } from 'react-icons/fa';
 import { MdRealEstateAgent, MdEmail } from 'react-icons/md';
 import { BiLogIn, BiLogOut } from 'react-icons/bi';
 import { useAuth } from '../providers/AuthProvider';
@@ -37,6 +37,8 @@ const Navbar = () => {
   const navLinks = [
     { path: '/', label: 'Home', icon: <FaHome /> },
     { path: '/properties', label: 'All Properties', icon: <MdRealEstateAgent /> },
+    { path: '/about', label: 'About Us', icon: <FaInfoCircle /> },
+    { path: '/contact', label: 'Contact', icon: <FaEnvelope /> },
   ];
 
   const privateLinks = [
@@ -102,7 +104,7 @@ const Navbar = () => {
               <h1 className="text-2xl lg:text-3xl font-black bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent tracking-tight">
                 HomeNest
               </h1>
-              <p className="text-[10px] lg:text-xs font-semibold text-gray-500 tracking-wider">FIND YOUR DREAM</p>
+              <p className="text-[10px] lg:text-xs font-semibold text-gray-500 dark:text-gray-400 tracking-wider">FIND YOUR DREAM</p>
             </div>
           </Link>
 
