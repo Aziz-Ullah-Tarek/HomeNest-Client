@@ -162,14 +162,14 @@ const Login = () => {
                             </div>
                         </div>
 
-                        {/* Google Login Button */}
+                        {/* Social Login Button */}
                         <button
                             type="button"
                             onClick={handleGoogleLogin}
-                            className="w-full flex items-center justify-center gap-3 py-2.5 px-4 border-2 border-gray-300 dark:border-slate-600 rounded-lg shadow-sm bg-white dark:bg-slate-700 text-sm font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-slate-600 hover:border-gray-400 dark:hover:border-slate-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition duration-200"
+                            className="w-full flex items-center justify-center gap-2 py-2.5 px-4 border-2 border-gray-300 dark:border-slate-600 rounded-lg shadow-sm bg-white dark:bg-slate-700 text-sm font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-slate-600 hover:border-gray-400 dark:hover:border-slate-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition duration-200"
                         >
-                            <FaGoogle className="h-5 w-5 text-red-500" />
-                            Sign in with Google
+                            <FaGoogle className="text-lg text-red-500" />
+                            Continue with Google
                         </button>
                     </form>
 

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { FaHome, FaBars, FaUser, FaBuilding, FaPlusCircle, FaStar, FaMoon, FaSun, FaInfoCircle, FaEnvelope } from 'react-icons/fa';
+import { FaHome, FaBars, FaUser, FaBuilding, FaPlusCircle, FaStar, FaMoon, FaSun, FaInfoCircle, FaEnvelope, FaChartBar } from 'react-icons/fa';
 import { MdRealEstateAgent, MdEmail } from 'react-icons/md';
 import { BiLogIn, BiLogOut } from 'react-icons/bi';
 import { useAuth } from '../providers/AuthProvider';
@@ -37,17 +37,20 @@ const Navbar = () => {
   const navLinks = [
     { path: '/', label: 'Home', icon: <FaHome /> },
     { path: '/properties', label: 'All Properties', icon: <MdRealEstateAgent /> },
+  ];
+
+  const mobileOnlyLinks = [
     { path: '/about', label: 'About Us', icon: <FaInfoCircle /> },
     { path: '/contact', label: 'Contact', icon: <FaEnvelope /> },
   ];
 
-  const privateLinks = [
-    { path: '/add-property', label: 'Add Properties', icon: <FaPlusCircle /> },
-    { path: '/my-properties', label: 'My Properties', icon: <FaBuilding /> },
-    { path: '/my-ratings', label: 'My Ratings', icon: <FaStar /> },
+  const userNavLinks = [
+    { path: '/dashboard/add-property', label: 'Add Property', icon: <FaPlusCircle /> },
+    { path: '/dashboard/my-properties', label: 'My Properties', icon: <FaBuilding /> },
+    { path: '/dashboard/my-ratings', label: 'My Ratings', icon: <FaStar /> },
   ];
 
-  const allLinks = [...navLinks, ...(user ? privateLinks : [])];
+  const mobileMenuLinks = [...navLinks, ...mobileOnlyLinks, ...(user ? [{ path: '/dashboard', label: 'Dashboard', icon: <FaChartBar /> }, ...userNavLinks] : [])];
 
   return (
     <nav className="fixed w-full top-0 z-50 bg-white dark:bg-slate-900 shadow-lg border-b border-gray-200 dark:border-slate-700">
@@ -70,7 +73,7 @@ const Navbar = () => {
             {menuOpen && (
               <div className="absolute left-0 mt-2 w-64 bg-white dark:bg-slate-800 rounded-xl shadow-2xl border border-gray-200 dark:border-slate-700 overflow-hidden">
                 <div className="p-2">
-                  {allLinks.map((link) => (
+                  {mobileMenuLinks.map((link) => (
                     <NavLink
                       key={link.path}
                       to={link.path}
@@ -127,7 +130,7 @@ const Navbar = () => {
               </NavLink>
             ))}
 
-            {user && privateLinks.map((link) => (
+            {user && userNavLinks.map((link) => (
               <NavLink
                 key={link.path}
                 to={link.path}
@@ -209,7 +212,26 @@ const Navbar = () => {
                     </div>
 
                     {/* Body */}
-                    <div className="p-3 lg:p-4 space-y-2 lg:space-y-3">
+                    <div className="p-3 lg:p-4 space-y-2">
+                      {/* Dashboard Link - Only in dropdown */}
+                      <Link
+                        to="/dashboard"
+                        onClick={() => setUserDropdown(false)}
+                        className="flex items-center space-x-3 p-2 lg:px-3 lg:py-2 rounded-lg hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-colors group"
+                      >
+                        <div className="w-8 h-8 rounded-full bg-purple-100 dark:bg-purple-900 flex items-center justify-center group-hover:bg-purple-200 dark:group-hover:bg-purple-800 transition-colors">
+                          <FaChartBar className="text-purple-600 dark:text-purple-400 text-sm" />
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-sm text-gray-800 dark:text-gray-200 font-semibold">
+                            Dashboard
+                          </p>
+                        </div>
+                      </Link>
+
+                      {/* Divider */}
+                      <div className="border-t border-gray-200 dark:border-slate-600 my-2"></div>
+
                       {/* Name */}
                       <div className="flex items-center space-x-3 p-2 lg:px-3 lg:py-2 rounded-lg bg-gray-50 dark:bg-slate-700">
                         <div className="w-8 h-8 rounded-full bg-purple-100 dark:bg-purple-900 flex items-center justify-center">

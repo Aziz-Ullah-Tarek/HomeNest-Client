@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import Layout from '../components/Layout';
+import DashboardLayout from '../components/Dashboard/DashboardLayout';
 import Home from '../pages/Home';
 import Properties from '../pages/Properties';
 import PropertyDetails from '../pages/PropertyDetails';
@@ -13,6 +14,14 @@ import About from '../pages/About';
 import Contact from '../pages/Contact';
 import NotFound from '../pages/NotFound';
 import PrivateRoute from './PrivateRoute';
+import AdminRoute from './AdminRoute';
+
+// Dashboard Pages
+import DashboardOverview from '../pages/Dashboard/DashboardOverview';
+import Profile from '../pages/Dashboard/Profile';
+import ManageUsers from '../pages/Dashboard/ManageUsers';
+import ManageProperties from '../pages/Dashboard/ManageProperties';
+import Statistics from '../pages/Dashboard/Statistics';
 
 const router = createBrowserRouter([
   {
@@ -50,21 +59,59 @@ const router = createBrowserRouter([
             path: '/properties/:id',
             element: <PropertyDetails />,
           },
+        ],
+      },
+    ],
+  },
+  // Dashboard Routes
+  {
+    path: '/dashboard',
+    element: <PrivateRoute />,
+    children: [
+      {
+        element: <DashboardLayout />,
+        children: [
           {
-            path: '/add-property',
-            element: <AddProperty />,
+            index: true,
+            element: <DashboardOverview />,
           },
           {
-            path: '/edit-property/:id',
-            element: <EditProperty />,
+            path: 'profile',
+            element: <Profile />,
           },
           {
-            path: '/my-properties',
+            path: 'my-properties',
             element: <MyProperties />,
           },
           {
-            path: '/my-ratings',
+            path: 'add-property',
+            element: <AddProperty />,
+          },
+          {
+            path: 'edit-property/:id',
+            element: <EditProperty />,
+          },
+          {
+            path: 'my-ratings',
             element: <MyRatings />,
+          },
+          // Admin Routes
+          {
+            element: <AdminRoute />,
+            children: [
+              {
+                path: 'manage-users',
+                element: <ManageUsers />,
+              },
+              {
+                path: 'manage-properties',
+                element: <ManageProperties />,
+              },
+              {
+                path: 'statistics',
+                element: <Statistics />,
+              },
+            ],
           },
         ],
       },
