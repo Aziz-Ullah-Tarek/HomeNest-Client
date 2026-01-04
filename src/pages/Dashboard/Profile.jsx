@@ -16,7 +16,7 @@ const Profile = () => {
         address: ''
     });
 
-    const backendURL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
+    const backendURL = import.meta.env.VITE_BACKEND_URL || 'https://homenest-server.vercel.app';
 
     useEffect(() => {
         if (user) {

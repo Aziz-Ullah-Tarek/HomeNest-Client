@@ -5,6 +5,7 @@ import { Rating } from 'react-simple-star-rating';
 import axios from 'axios';
 import { useAuth } from '../providers/AuthProvider';
 import { toast } from 'react-toastify';
+import API_BASE_URL from '../config/api';
 
 const PropertyDetails = () => {
   const { id } = useParams();
@@ -19,7 +20,7 @@ const PropertyDetails = () => {
   useEffect(() => {
     const fetchPropertyDetails = async () => {
       try {
-        const response = await axios.get(`https://homenest-server.vercel.app/properties/${id}`);
+        const response = await axios.get(`${API_BASE_URL}/properties/${id}`);
         setProperty(response.data);
         setLoading(false);
       } catch (error) {
@@ -33,7 +34,7 @@ const PropertyDetails = () => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await axios.get(`https://homenest-server.vercel.app/reviews/property/${id}`);
+        const response = await axios.get(`${API_BASE_URL}/reviews/property/${id}`);
         setReviews(response.data);
       } catch (error) {
         console.error('Error fetching reviews:', error);
@@ -81,12 +82,12 @@ const PropertyDetails = () => {
       console.log('Submitting review:', reviewData);
       console.log('Original rating value:', rating, 'Final rating:', finalRating);
       
-      const response = await axios.post('https://homenest-server.vercel.app/reviews', reviewData);
+      const response = await axios.post(`${API_BASE_URL}/reviews`, reviewData);
       
       console.log('Review response:', response.data);
       
       // Refresh reviews
-      const reviewsResponse = await axios.get(`https://homenest-server.vercel.app/reviews/property/${id}`);
+      const reviewsResponse = await axios.get(`${API_BASE_URL}/reviews/property/${id}`);
       setReviews(reviewsResponse.data);
       
       // Reset form

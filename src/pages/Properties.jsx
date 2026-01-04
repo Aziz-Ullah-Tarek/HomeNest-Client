@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { FaMapMarkerAlt, FaDollarSign, FaUser, FaArrowRight, FaTags, FaStar, FaStarHalfAlt, FaSortAmountDown, FaSortAmountUp, FaSearch } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import API_BASE_URL from '../config/api';
 
 const Properties = () => {
   const [properties, setProperties] = useState([]);
@@ -52,7 +53,7 @@ const Properties = () => {
 
   const fetchPropertyReviews = async (propertyId) => {
     try {
-      const response = await axios.get(`https://homenest-server.vercel.app/reviews/property/${propertyId}`);
+      const response = await axios.get(`${API_BASE_URL}/reviews/property/${propertyId}`);
       return response.data;
     } catch (error) {
       console.error('Error fetching reviews for property:', propertyId, error);
@@ -70,7 +71,7 @@ const Properties = () => {
     const fetchAllProperties = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`https://homenest-server.vercel.app/properties?sortBy=${sortBy}&order=${sortOrder}`);
+        const response = await axios.get(`${API_BASE_URL}/properties?sortBy=${sortBy}&order=${sortOrder}`);
         setProperties(response.data);
         
         // Fetch reviews for each property

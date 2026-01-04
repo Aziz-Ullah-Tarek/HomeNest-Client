@@ -10,6 +10,7 @@ import {
 } from 'firebase/auth';
 import { auth } from '../firebase/firebase.config';
 import axios from 'axios';
+import API_BASE_URL from '../config/api';
 
 const AuthContext = createContext(null);
 
@@ -26,7 +27,7 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
 
-  const backendURL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
+  const backendURL = API_BASE_URL;
 
   // Check if user is admin
   const checkAdminStatus = async (currentUser) => {

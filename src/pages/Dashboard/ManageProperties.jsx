@@ -10,7 +10,7 @@ const ManageProperties = () => {
     const [properties, setProperties] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
-    const backendURL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
+    const backendURL = import.meta.env.VITE_BACKEND_URL || 'https://homenest-server.vercel.app';
 
     useEffect(() => {
         fetchProperties();

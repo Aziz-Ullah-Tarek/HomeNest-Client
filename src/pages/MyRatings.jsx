@@ -4,6 +4,7 @@ import { Rating } from 'react-simple-star-rating';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
+import API_BASE_URL from '../config/api';
 
 const MyRatings = () => {
   const { user } = useAuth();
@@ -12,7 +13,7 @@ const MyRatings = () => {
 
   const fetchMyReviews = async () => {
     try {
-      const response = await axios.get(`https://homenest-server.vercel.app/reviews/user/${user.email}`);
+      const response = await axios.get(`${API_BASE_URL}/reviews/user/${user.email}`);
       setReviews(response.data);
     } catch (error) {
       console.error('Error fetching reviews:', error);
@@ -43,7 +44,7 @@ const MyRatings = () => {
 
     if (result.isConfirmed) {
       try {
-        await axios.delete(`https://homenest-server.vercel.app/reviews/${reviewId}`);
+        await axios.delete(`${API_BASE_URL}/reviews/${reviewId}`);
         setReviews(reviews.filter(review => review._id !== reviewId));
         
         Swal.fire({

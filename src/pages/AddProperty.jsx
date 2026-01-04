@@ -4,6 +4,7 @@ import { FaHome, FaDollarSign, FaMapMarkerAlt, FaImage, FaAlignLeft, FaTags } fr
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { useAuth } from '../providers/AuthProvider';
+import API_BASE_URL from '../config/api';
 
 const AddProperty = () => {
   const { user } = useAuth();
@@ -43,7 +44,7 @@ const AddProperty = () => {
         createdAt: new Date().toISOString()
       };
 
-      const response = await axios.post('https://homenest-server.vercel.app/properties', propertyData);
+      const response = await axios.post(`${API_BASE_URL}/properties`, propertyData);
       
       if (response.data.insertedId) {
         toast.success('Property added successfully! ');

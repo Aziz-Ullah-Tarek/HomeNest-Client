@@ -4,6 +4,7 @@ import { FaHome, FaDollarSign, FaMapMarkerAlt, FaImage, FaAlignLeft, FaTags } fr
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { useAuth } from '../providers/AuthProvider';
+import API_BASE_URL from '../config/api';
 
 const EditProperty = () => {
   const { id } = useParams();
@@ -24,7 +25,7 @@ const EditProperty = () => {
   useEffect(() => {
     const fetchProperty = async () => {
       try {
-        const response = await axios.get(`https://homenest-server.vercel.app/properties/${id}`);
+        const response = await axios.get(`${API_BASE_URL}/properties/${id}`);
         const property = response.data;
         
         if (property.userEmail !== user?.email) {
@@ -63,7 +64,7 @@ const EditProperty = () => {
 
     setLoading(true);
     try {
-      await axios.put(`https://homenest-server.vercel.app/properties/${id}`, {
+      await axios.put(`${API_BASE_URL}/properties/${id}`, {
         ...formData,
         price: Number(formData.price)
       });

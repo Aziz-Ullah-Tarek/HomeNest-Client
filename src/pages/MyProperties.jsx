@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { useAuth } from '../providers/AuthProvider';
+import API_BASE_URL from '../config/api';
 
 const MyProperties = () => {
   const { user } = useAuth();
@@ -49,7 +50,7 @@ const MyProperties = () => {
 
   const fetchPropertyReviews = async (propertyId) => {
     try {
-      const response = await axios.get(`https://homenest-server.vercel.app/reviews/property/${propertyId}`);
+      const response = await axios.get(`${API_BASE_URL}/reviews/property/${propertyId}`);
       return response.data;
     } catch (error) {
       console.error('Error fetching reviews for property:', propertyId, error);
@@ -65,7 +66,7 @@ const MyProperties = () => {
 
   const fetchMyProperties = async () => {
     try {
-      const response = await axios.get('https://homenest-server.vercel.app/properties');
+      const response = await axios.get(`${API_BASE_URL}/properties`);
       const userProperties = response.data.filter(prop => prop.userEmail === user?.email);
       setProperties(userProperties);
       
@@ -118,7 +119,7 @@ const MyProperties = () => {
     if (result.isConfirmed) {
       try {
         // Delete from database
-        await axios.delete(`https://homenest-server.vercel.app/properties/${id}`);
+        await axios.delete(`${API_BASE_URL}/properties/${id}`);
         
         // Instantly update UI without refresh
         setProperties(prevProperties => 

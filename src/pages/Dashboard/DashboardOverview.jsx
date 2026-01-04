@@ -9,7 +9,7 @@ const DashboardOverview = () => {
     const { user, isAdmin } = useAuth();
     const [stats, setStats] = useState(null);
     const [loading, setLoading] = useState(true);
-    const backendURL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
+    const backendURL = import.meta.env.VITE_BACKEND_URL || 'https://homenest-server.vercel.app';
 
     const COLORS = ['#9333ea', '#ec4899', '#f59e0b', '#10b981', '#3b82f6', '#8b5cf6'];
 
