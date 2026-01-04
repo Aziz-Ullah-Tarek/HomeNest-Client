@@ -12,6 +12,8 @@ const Properties = () => {
   const [sortBy, setSortBy] = useState('date');
   const [sortOrder, setSortOrder] = useState('desc');
   const [searchTerm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const propertiesPerPage = 6;
 
   // Function to render star rating
   const StarRating = ({ rating, reviewCount }) => {
@@ -106,15 +108,50 @@ const Properties = () => {
     return categoryMatch && searchMatch;
   });
 
+  // Reset to page 1 when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedCategory, searchTerm, sortBy, sortOrder]);
+
+  // Pagination calculations
+  const totalPages = Math.ceil(filteredProperties.length / propertiesPerPage);
+  const indexOfLastProperty = currentPage * propertiesPerPage;
+  const indexOfFirstProperty = indexOfLastProperty - propertiesPerPage;
+  const currentProperties = filteredProperties.slice(indexOfFirstProperty, indexOfLastProperty);
+
+  // Pagination handlers
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   // Get unique categories
   const categories = ['All', ...new Set(properties.map(p => p.category))];
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-slate-900">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-purple-600 mx-auto mb-4"></div>
-          <p className="text-gray-600 font-semibold">Loading properties...</p>
+          <div className="relative">
+            <div className="animate-spin rounded-full h-20 w-20 border-t-4 border-b-4 border-purple-600 mx-auto mb-4"></div>
+            <div className="animate-ping absolute inset-0 rounded-full h-20 w-20 border-4 border-purple-400 opacity-20 mx-auto"></div>
+          </div>
+          <p className="text-gray-600 dark:text-gray-400 font-semibold text-lg">Loading properties...</p>
+          <p className="text-gray-500 dark:text-gray-500 text-sm mt-2">Please wait while we fetch the best properties for you</p>
         </div>
       </div>
     );
@@ -244,14 +281,14 @@ const Properties = () => {
 
         {/* Properties Count */}
         <div className="mb-6 text-center">
-          <p className="text-gray-600 font-semibold">
-            Showing <span className="text-purple-600 font-black">{filteredProperties.length}</span> {filteredProperties.length === 1 ? 'property' : 'properties'}
+          <p className="text-gray-600 dark:text-gray-400 font-semibold">
+            Showing <span className="text-purple-600 font-black">{indexOfFirstProperty + 1}</span> - <span className="text-purple-600 font-black">{Math.min(indexOfLastProperty, filteredProperties.length)}</span> of <span className="text-purple-600 font-black">{filteredProperties.length}</span> {filteredProperties.length === 1 ? 'property' : 'properties'}
           </p>
         </div>
 
         {/* Properties Grid */}
         {filteredProperties.length === 0 ? (
-          <div className="bg-white rounded-2xl p-12 text-center shadow-lg border border-gray-100">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl p-12 text-center shadow-lg border border-gray-100 dark:border-slate-700">
             <div className="text-6xl mb-4">🏠</div>
             <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">No Properties Found</h3>
             <p className="text-gray-600 dark:text-gray-400">
@@ -261,8 +298,9 @@ const Properties = () => {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredProperties.map((property) => (
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {currentProperties.map((property) => (
               <div 
                 key={property._id} 
                 className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group hover:-translate-y-1 border border-gray-100"
@@ -342,6 +380,83 @@ const Properties = () => {
               </div>
             ))}
           </div>
+
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <div className="mt-12 flex flex-col items-center gap-6">
+              {/* Page Info */}
+              <p className="text-gray-600 dark:text-gray-400 font-semibold">
+                Page <span className="text-purple-600 font-black">{currentPage}</span> of <span className="text-purple-600 font-black">{totalPages}</span>
+              </p>
+
+              {/* Pagination Controls */}
+              <div className="flex items-center gap-2">
+                {/* Previous Button */}
+                <button
+                  onClick={handlePrevPage}
+                  disabled={currentPage === 1}
+                  className={`px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
+                    currentPage === 1
+                      ? 'bg-gray-200 dark:bg-slate-700 text-gray-400 dark:text-gray-500 cursor-not-allowed'
+                      : 'bg-white dark:bg-slate-800 text-gray-700 dark:text-gray-200 hover:bg-purple-50 dark:hover:bg-purple-900/20 border-2 border-purple-200 dark:border-purple-800 hover:border-purple-400 dark:hover:border-purple-600'
+                  }`}
+                >
+                  ← Previous
+                </button>
+
+                {/* Page Numbers */}
+                <div className="flex gap-2">
+                  {[...Array(totalPages)].map((_, index) => {
+                    const pageNumber = index + 1;
+                    // Show first page, last page, current page, and pages around current
+                    if (
+                      pageNumber === 1 ||
+                      pageNumber === totalPages ||
+                      (pageNumber >= currentPage - 1 && pageNumber <= currentPage + 1)
+                    ) {
+                      return (
+                        <button
+                          key={pageNumber}
+                          onClick={() => handlePageChange(pageNumber)}
+                          className={`w-10 h-10 rounded-lg font-bold text-sm transition-all ${
+                            currentPage === pageNumber
+                              ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg scale-110'
+                              : 'bg-white dark:bg-slate-800 text-gray-700 dark:text-gray-200 hover:bg-purple-50 dark:hover:bg-purple-900/20 border-2 border-gray-200 dark:border-slate-600 hover:border-purple-400 dark:hover:border-purple-600'
+                          }`}
+                        >
+                          {pageNumber}
+                        </button>
+                      );
+                    } else if (
+                      pageNumber === currentPage - 2 ||
+                      pageNumber === currentPage + 2
+                    ) {
+                      return (
+                        <span key={pageNumber} className="w-10 h-10 flex items-center justify-center text-gray-400 dark:text-gray-500">
+                          ...
+                        </span>
+                      );
+                    }
+                    return null;
+                  })}
+                </div>
+
+                {/* Next Button */}
+                <button
+                  onClick={handleNextPage}
+                  disabled={currentPage === totalPages}
+                  className={`px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
+                    currentPage === totalPages
+                      ? 'bg-gray-200 dark:bg-slate-700 text-gray-400 dark:text-gray-500 cursor-not-allowed'
+                      : 'bg-white dark:bg-slate-800 text-gray-700 dark:text-gray-200 hover:bg-purple-50 dark:hover:bg-purple-900/20 border-2 border-purple-200 dark:border-purple-800 hover:border-purple-400 dark:hover:border-purple-600'
+                  }`}
+                >
+                  Next →
+                </button>
+              </div>
+            </div>
+          )}
+        </>
         )}
 
         {/* Statistics */}

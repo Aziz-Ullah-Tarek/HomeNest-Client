@@ -29,9 +29,9 @@ const FeaturedProperties = () => {
           <h2 className="text-4xl font-black  text-gray-900 mb-4">Featured Properties</h2>
           <p className="text-gray-700">Discover our handpicked selection</p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {[1, 2, 3, 4, 5, 6].map((i) => (
-            <div key={i} className="bg-gray-200 animate-pulse rounded-2xl h-80"></div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+            <div key={i} className="bg-gray-200 dark:bg-slate-700 animate-pulse rounded-2xl h-80"></div>
           ))}
         </div>
       </div>

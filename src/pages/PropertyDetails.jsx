@@ -103,8 +103,14 @@ const PropertyDetails = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-purple-600"></div>
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-slate-900">
+        <div className="text-center">
+          <div className="relative">
+            <div className="animate-spin rounded-full h-20 w-20 border-t-4 border-b-4 border-purple-600 mx-auto mb-4"></div>
+            <div className="animate-ping absolute inset-0 rounded-full h-20 w-20 border-4 border-purple-400 opacity-20 mx-auto"></div>
+          </div>
+          <p className="text-gray-600 dark:text-gray-400 font-semibold text-lg">Loading property details...</p>
+        </div>
       </div>
     );
   }
